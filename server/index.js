@@ -26,6 +26,8 @@ const sess = session({
     }),
     cookie: {   
         secure: true,
+        samesSite: "none",
+        httpOnly: true
     }
 })
 const origin = process.env.URL
