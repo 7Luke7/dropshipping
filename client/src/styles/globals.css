@@ -1,0 +1,29 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html { 
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'bpg_classic_medium';
+  src: local('bpg_classic_medium'), url(../fonts/bpg_classic_medium.ttf) format('ttf');
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+ 
+::-webkit-scrollbar-thumb { 
+  background: rgb(301,127,51);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgb(271,97,21);
+}
