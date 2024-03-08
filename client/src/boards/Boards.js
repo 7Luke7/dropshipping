@@ -43,13 +43,14 @@ const Page = () => {
                     board_names_to_translate.push(data.result.threeNames[i].name)   
                 }
 
-                const translated_board_names = await translate(board_names_to_translate)
+                const translated_board_names = await translate([data.result.category, ...board_names_to_translate])
 
                 for (let i = 0; i < data.result.threeNames.length; i++) {
-                    data.result.threeNames[i].name = translated_board_names[0][i]
+                    let j = i + 1
+                    data.result.threeNames[i].name = translated_board_names[0][j]
                 }
 
-                setBoard({...data.result, ...colors})
+                setBoard({...data.result, ...colors, title: translated_board_names[0][0]})
                 get_activities_by_id({name: data.result.threeNames[0].name, id: params.id})
             } catch (error) {
                 console.log(error);
@@ -122,19 +123,19 @@ const Page = () => {
             <Helmet>
         <meta
           name="description"
-          content="უფასო მიწოდება უამრავ ნივთზე. მიიღეთ საუკეთესო შოპინგის გამოცდილება. ისარგებლეთ დაბალი ფასებით და დიდი შეთავაზებებით ყოველდღიური საჭირო ნივთების და სხვა პროდუქტების უდიდეს არჩევანზე, მათ შორის მოდაზე, სახლზე, სილამაზეზე, ელექტრონიკაზე, სპორტული, სათამაშოები, შინაური ცხოველები, ბავშვები, წიგნები, ვიდეო თამაშები, საოფისე მასალები და მეტი. - Slashy.ge"
+          content="უფასო მიწოდება უამრავ ნივთზე. მიიღეთ საუკეთესო შოპინგის გამოცდილება. ისარგებლეთ დაბალი ფასებით და დიდი შეთავაზებებით ყოველდღიური საჭირო ნივთების და სხვა პროდუქტების უდიდეს არჩევანზე, მათ შორის მოდაზე, სახლზე, სილამაზეზე, ელექტრონიკაზე, სპორტული, სათამაშოები, შინაური ცხოველები, ბავშვები, წიგნები, ვიდეო თამაშები, საოფისე მასალები და მეტი. - Slash.ge"
         />
         <meta
           name="keywords"
-          content="Slashy, Slashy.ge, ჩინეთიდან, ამერიკიდან, გერმანიიდან, ინგლისიდან, ონლაინ შოპინგი, ონლაინ მაღაზია, დაბალი ფასი, წიგნები, წიგნის მაღაზია, ჟურნალი, გამოწერა, მუსიკა, CD, DVD, ვიდეო, ელექტრონიკა, ვიდეო თამაშები, კომპიუტერები, მობილური ტელეფონები, სათამაშოები, თამაშები, ტანსაცმელი, აქსესუარები, ფეხსაცმელი, სამკაულები, საათები, საოფისე პროდუქტები, სპორტი და ღია ცის ქვეშ, სპორტული საქონელი, ბავშვის პროდუქტები, ჯანმრთელობა, პირადი მოვლა, სილამაზე, სახლი, ბაღი, საწოლი და აბაზანა, ავეჯი, ხელსაწყოები, აპარატურა, მტვერსასრუტები, გარე საცხოვრებელი, ავტომობილების ნაწილები, შინაური ცხოველების მარაგი"
+          content="Slash, Slash.ge, ჩინეთიდან, ამერიკიდან, გერმანიიდან, ინგლისიდან, ონლაინ შოპინგი, ონლაინ მაღაზია, დაბალი ფასი, წიგნები, წიგნის მაღაზია, ჟურნალი, გამოწერა, მუსიკა, CD, DVD, ვიდეო, ელექტრონიკა, ვიდეო თამაშები, კომპიუტერები, მობილური ტელეფონები, სათამაშოები, თამაშები, ტანსაცმელი, აქსესუარები, ფეხსაცმელი, სამკაულები, საათები, საოფისე პროდუქტები, სპორტი და ღია ცის ქვეშ, სპორტული საქონელი, ბავშვის პროდუქტები, ჯანმრთელობა, პირადი მოვლა, სილამაზე, სახლი, ბაღი, საწოლი და აბაზანა, ავეჯი, ხელსაწყოები, აპარატურა, მტვერსასრუტები, გარე საცხოვრებელი, ავტომობილების ნაწილები, შინაური ცხოველების მარაგი"
         />
         <link rel="canonical" href={window.location.href} />
 
         <meta property="og:type" content="website" />
-        <meta property="og:title" content="პროდუქცია უცხოეთიდან - Slashy.ge" />
+        <meta property="og:title" content="პროდუქცია უცხოეთიდან - Slash.ge" />
         <meta
           property="og:description"
-          content="ჩვენ გთავაზობთ შეიძინოთ უცხოეთში დამზადებული ნივთები დაბალ ფასად - Slashy.ge"
+          content="ჩვენ გთავაზობთ შეიძინოთ უცხოეთში დამზადებული ნივთები დაბალ ფასად - Slash.ge"
         />
         {/*<meta
           property="og:image"
@@ -143,10 +144,10 @@ const Page = () => {
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="900" />
         <meta property="og:url" content={window.location.href} />
-        <title>{board.category} - Slashy</title>
+        <title>{board.title} - Slash</title>
     </Helmet>
     <div id="closeScroll" style={{ backgroundColor: board.backColor }} className="h-full min-h-screen w-full">
-            <img src={board.activityImgUrl} fetchpriority="high" className="w-full xxs:h-[80px] xs:h-[120px] md:h-[260px] md:object-contain sm:h-[180px] mobl:h-[140px] object-cover object-top lg:h-[200px] xl:h-[450px]" alt="ბანერი"></img>
+            <img src={board.activityImgUrl} loading="lazy" className="w-full xxs:h-[80px] xs:h-[120px] md:h-[260px] md:object-contain sm:h-[180px] mobl:h-[140px] object-cover object-top lg:h-[200px] xl:h-[450px]" alt="ბანერი"></img>
             <div id="start" className="sm:w-[80%] xxs:w-full m-auto">
                 <ul style={{backgroundColor: board.allThreeBackColor}} id="activityBar" className="h-[70px] xxs:hidden right-0 gap-2 sm:sticky z-50 top-0 lg:-translate-y-[3%] lg:w-full sm:flex items-center justify-around">
                     {board.threeNames && board.threeNames.map((name, i) => {

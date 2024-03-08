@@ -10,8 +10,8 @@ export const SearchProducts = ({category_id, page, isVideo, isAsc, fieldType, co
     const [products, setProducts] = useState()
     
     useEffect(() => {    
+      setIsLoading(true)
       const fetch_products = async () => {
-          setIsLoading(true)
           document.getElementById("mobile_filter_component").style.display = "none"
           try {
               const request = await fetch("https://m.cjdropshipping.com/elastic-api/product/v4/search", {
@@ -101,12 +101,12 @@ export const SearchProducts = ({category_id, page, isVideo, isAsc, fieldType, co
       return keyword_array.join(', ');
       }, [category_id])
 
-    const render = useMemo(() => {
       const productListLength = products && products.content[0].productList.length
+    const render = useMemo(() => {
         if (isLoading) {
             return <Fragment>
                   <div className="flex gap-y-2 gap-x-1 flex-wrap xxs:justify-center lg:justify-between">
-                  {Array.from({length: 30 }).map((_, index) => {
+                  {Array.from({length: 10 }).map((_, index) => {
                   return <div key={index} className="animate-pulse xxs:w-[220px] lg:w-[200px] xs:w-[230px] mobl:w-[160px] xl:w-[200px]">
               <Fragment>
               <div
@@ -133,7 +133,7 @@ export const SearchProducts = ({category_id, page, isVideo, isAsc, fieldType, co
           <Helmet>
         <meta
           name="description"
-          content={keyword ? `ძიება ${keyword} - საუკეთესო ფასებში - Slashy.ge` : `${keywords} - საუკეთესო ფასებში - Slashy.ge`}
+          content={keyword ? `ძიება ${keyword} - საუკეთესო ფასებში - Slash.ge` : `${keywords} - საუკეთესო ფასებში - Slash.ge`}
         />
         <meta
           name="keywords"
@@ -142,10 +142,10 @@ export const SearchProducts = ({category_id, page, isVideo, isAsc, fieldType, co
         <link rel="canonical" href={window && window.location.href} />
 
         <meta property="og:type" content="website" />
-        <meta property="og:title" content={keyword ? `ძიება ${keyword} - Slashy.ge` : `${keywords} - Slashy.ge`} />
+        <meta property="og:title" content={keyword ? `ძიება ${keyword} - Slash.ge` : `${keywords} - Slash.ge`} />
         <meta
           property="og:description"
-          content={keyword ? `ძიება ${keyword} - საუკეთესო ფასებში - Slashy.ge` : `${keywords} - საუკეთესო ფასებში - Slashy.ge`}
+          content={keyword ? `ძიება ${keyword} - საუკეთესო ფასებში - Slash.ge` : `${keywords} - საუკეთესო ფასებში - Slash.ge`}
         />
         {/*<meta
           property="og:image"
@@ -154,7 +154,7 @@ export const SearchProducts = ({category_id, page, isVideo, isAsc, fieldType, co
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="900" />
         <meta property="og:url" content={window && window.location.href} />
-        <title>{keyword ? `${keyword} გასაყიდად` : keywords} - Slashy</title>
+        <title>{keyword ? `${keyword} გასაყიდად` : keywords} - Slash</title>
     </Helmet>  
     </HelmetProvider>
           <div className="flex gap-y-2 gap-x-1 flex-wrap xxs:justify-center lg:justify-between">

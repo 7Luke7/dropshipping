@@ -26,13 +26,11 @@ export const Sidebar = () => {
             navigate("/login")
         } catch (error) {
             if(error.status === 401) {
-                alert("არ გაქვთ უფლება")
+                console.log("არ გაქვთ უფლება")
             }
             console.log(error);
         }
     }
-
-    console.log(routedArray, routed)
 
     return <aside className="p-5 sm:flex-[2] sm:h-full xxs:h-[68px] bg-[rgb(237,123,82)]">
         <div className="text-white sm:p-3 sm:pt-4 flex xxs:flex-row sm:flex-col sm:h-full sm:justify-between xxs:justify-center gap-5">

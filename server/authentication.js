@@ -104,7 +104,6 @@ const isAuthenticated = (req, res, next) => {
             throw new exntendedError("მომხმარებელს არ აქვს წვდომის უფლება", 401)
         }
     } catch (error) {
-        console.log(error);
         next(error)
     }
 }

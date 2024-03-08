@@ -17,6 +17,6 @@ export const translate = async (translatedata) => {
 
         return product_translated
     } catch (error) {
-        alert(error);
+        console.log(error)
     }
 }

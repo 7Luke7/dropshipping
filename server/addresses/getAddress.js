@@ -6,7 +6,7 @@ const get_address = async (req, res, next) => {
         const check_addresses = await User.findById(req.session.user)
 
         if (!check_addresses.addresses.length) {
-            throw exntendedError("მისამართები ცარიელია", 500)
+            throw new exntendedError("მისამართები ცარიელია", 500)
         }
 
         const addresses = check_addresses.addresses

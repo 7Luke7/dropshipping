@@ -10,6 +10,7 @@ import identify from "../public/identify.svg"
 import mobile from "../public/mobile.svg"
 import outChevron from "../public/out-chevron.svg"
 import { useParams } from "react-router-dom"
+import Logo from "../public/slashy_logo.webp"
 
 const Purchase = () => {
     const [variant, setVariant] = useState({})
@@ -129,7 +130,7 @@ const Purchase = () => {
         </div> : message === "გაქვს უფლება" ? <Fragment>
         <div className="flex flex-col items-center border-b bg-white py-4 sm:flex-row sm:px-10 lg:px-20 xl:px-32">
             <a href="/">
-            <img decoding="lazy" width={150} height={150} src="https://prestashop.dostguru.com/ES18/PS_Electronics03/img/electronic-store-logo-1527842815.jpg" alt="logo"></img>
+            <img decoding="lazy" className="xxs:w-[80px] lg:w-[90px] object-cover xxs:h-[50px] lg:h-[40px]" src={Logo} alt="ლოგო"></img>
         </a>
         <div className="mt-4 py-2 text-xs sm:mt-0 sm:ml-auto sm:text-base">
           <div className="relative">

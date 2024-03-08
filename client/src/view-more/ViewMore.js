@@ -72,20 +72,20 @@ const Page = () => {
       <Helmet>
         <meta
           name="description"
-          content={`გთავაზობთ 50 ${title}ს - Slashy.ge`}
+          content={`გთავაზობთ 50 ${title}ს - Slash.ge`}
         />
         <meta
           name="keywords"
-          content={`Slashy, Slashy.ge, ${title}, ტიკტოკ პროდუქცია`}
+          content={`Slash, Slash.ge, ${title}, ტიკტოკ პროდუქცია`}
         />
         <link rel="canonical" href={window.location.href} />
-        <title>მოძებნე {title} - Slashy</title>
+        <title>მოძებნე {title} - Slash</title>
 
         <meta property="og:type" content="website" />
-        <meta property="og:title" content={`მოძებნე - ${title} - Slashy.ge`}/>
+        <meta property="og:title" content={`მოძებნე - ${title} - Slash.ge`}/>
         <meta
           property="og:description"
-          content={`გთავაზობთ 50 ${title}ს - Slashy.ge`}
+          content={`გთავაზობთ 50 ${title}ს - Slash.ge`}
         />
         {/*<meta
           property="og:image"

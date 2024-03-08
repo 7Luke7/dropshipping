@@ -34,7 +34,7 @@ export const CategoryBar = () => {
     const MemoizedMobCategoryList = memo(MobCategoryList)
 
     return <Fragment>
-        <div id="catBar" className='fixed pt-5 hidden overflow-scroll px-10 z-[100] bg-slate-500 left-0 bg-white right-0 top-0 bottom-0'>
+        <div id="catBar" className='fixed pt-5 hidden overflow-y-scroll px-10 z-[100] bg-slate-500 left-0 bg-white right-0 top-0 bottom-0'>
         <MemoizedMobCategoryBarUtil closeBar={closeBar}></MemoizedMobCategoryBarUtil>
         <div className="mt-5 flex-wrap flex items-center">
             {parents && <div className="flex">

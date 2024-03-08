@@ -102,7 +102,7 @@ const Cart = () => {
 
         return <HelmetProvider>
             <Helmet>
-                <title>Slashy კალათა</title>
+                <title>Slash - კალათა</title>
             </Helmet>
             <div className="relative">
         <Header></Header>

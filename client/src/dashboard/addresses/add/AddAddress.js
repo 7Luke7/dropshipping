@@ -43,7 +43,7 @@ const AddAddress = () => {
 
     return <HelmetProvider>
     <Helmet>
-      <title>Slashy - მისამათის დამატება</title>
+      <title>Slash - მისამათის დამატება</title>
     </Helmet>
      <div style={{flex: "11"}}>
     <div className="flex min-h-[80vh] items-center justify-center">

@@ -2,6 +2,7 @@ import { Footer } from "../Components/Footer";
 import { useNavigate } from "react-router-dom";
 import { Fragment, useState } from "react";
 import {Helmet, HelmetProvider} from "react-helmet-async"
+import Logo from "../public/slashy_logo.webp"
 
 const Login = () => {
   const [emailPhoneInput, setEmailPhoneInput] = useState("")
@@ -50,12 +51,12 @@ const Login = () => {
     <Fragment>
       <Helmet>
         <title>
-          Slashy შესვლა
+          Slash შესვლა
         </title>
       </Helmet>
     <div className="xxs:flex xs:block xxs:items-center xxs:justify-center sm:block p-7">
         <a href="/">
-            <img loading="lazy" width={150} height={150} src="https://prestashop.dostguru.com/ES18/PS_Electronics03/img/electronic-store-logo-1527842815.jpg" alt="logo"></img>
+            <img loading="lazy" className="xxs:w-[80px] lg:w-[90px] object-cover xxs:h-[50px] lg:h-[40px]" src={Logo} alt="ლოგო"></img>
         </a>
     </div>
       <section className="flex items-center justify-center">

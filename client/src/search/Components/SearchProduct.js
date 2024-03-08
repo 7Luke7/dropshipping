@@ -10,7 +10,7 @@ export const SearchProduct = ({p}) => {
           loading="lazy"
           className="object-cover border object-bottom h-[200px] w-full"
           src={isLoading ? `${p.bigImage}?x-oss-process=image/format,webp,image/resize,m_fill,w_25,h_25` : `${p.bigImage}?x-oss-process=image/format,webp,image/resize,m_fill,w_179,h_190`}
-          onLoad={(e) => setIsLoading(false)}
+          onLoad={() => setIsLoading(false)}
           alt={p.nameEn.substring(0, 60)}
         ></img>
         </div>

@@ -64,15 +64,15 @@ export const Landing = () => {
         />
         <meta
           name="keywords"
-          content="Slashy, ჩინეთიდან, ამერიკიდან, გერმანიიდან, ინგლისიდან, ონლაინ შოპინგი, ონლაინ მაღაზია, დაბალი ფასი, საუკეთესო ფასი, წიგნები, წიგნის მაღაზია, ჟურნალი, გამოწერა, მუსიკა, CD, DVD, ვიდეო, ელექტრონიკა, ვიდეო თამაშები, კომპიუტერები, მობილური ტელეფონები, სათამაშოები, თამაშები, ტანსაცმელი, აქსესუარები, ფეხსაცმელი, სამკაულები, საათები, საოფისე პროდუქტები, სპორტი და ღია ცის ქვეშ, სპორტული საქონელი, ბავშვის პროდუქტები, ჯანმრთელობა, პირადი მოვლა, სილამაზე, სახლი, ბაღი, საწოლი და აბაზანა, ავეჯი, ხელსაწყოები, აპარატურა, მტვერსასრუტები, გარე საცხოვრებელი, ავტომობილების ნაწილები, შინაური ცხოველების მარაგი"
+          content="Slash, ჩინეთიდან, ამერიკიდან, გერმანიიდან, ინგლისიდან, ონლაინ შოპინგი, ონლაინ მაღაზია, დაბალი ფასი, საუკეთესო ფასი, წიგნები, წიგნის მაღაზია, ჟურნალი, გამოწერა, მუსიკა, CD, DVD, ვიდეო, ელექტრონიკა, ვიდეო თამაშები, კომპიუტერები, მობილური ტელეფონები, სათამაშოები, თამაშები, ტანსაცმელი, აქსესუარები, ფეხსაცმელი, სამკაულები, საათები, საოფისე პროდუქტები, სპორტი და ღია ცის ქვეშ, სპორტული საქონელი, ბავშვის პროდუქტები, ჯანმრთელობა, პირადი მოვლა, სილამაზე, სახლი, ბაღი, საწოლი და აბაზანა, ავეჯი, ხელსაწყოები, აპარატურა, მტვერსასრუტები, გარე საცხოვრებელი, ავტომობილების ნაწილები, შინაური ცხოველების მარაგი"
         />
-        <link rel="canonical" href="https://slashy.ge" />
-        <title>Slashy.ge. ონლაინ მაღაზია. საუკეთესო ფასები.</title>
+        <link rel="canonical" href="https://Slash.ge" />
+        <title>Slash.ge. ონლაინ მაღაზია. საუკეთესო ფასები.</title>
         <meta property="og:type" content="website" />
-        <meta property="og:title" content="პროდუქცია უცხოეთიდან - Slashy" />
+        <meta property="og:title" content="პროდუქცია უცხოეთიდან - Slash" />
         <meta
           property="og:description"
-          content="ჩვენ გთავაზობთ შეიძინოთ უცხოეთში დამზადებული ნივთები დაბალ ფასად - Slashy"
+          content="ჩვენ გთავაზობთ შეიძინოთ უცხოეთში დამზადებული ნივთები დაბალ ფასად - Slash"
         />
         <meta
           property="og:image"
@@ -80,7 +80,7 @@ export const Landing = () => {
         />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="900" />
-        <meta property="og:url" content="https://slashy.ge/" />
+        <meta property="og:url" content="https://Slash.ge/" />
         <link
           rel="stylesheet"
           type="text/css"
@@ -102,18 +102,18 @@ export const Landing = () => {
           <span id="test1"></span>
           {firstLoad && 
           <Fragment>
-            <NewProducts firstLoad={firstLoad}></NewProducts>
+            <NewProducts></NewProducts>
             <span id="test2"></span>
           </Fragment>}
           {secondLoad && <Fragment>
-              <VideoProducts secondLoad={secondLoad}></VideoProducts>
+              <VideoProducts></VideoProducts>
               <span id="test3"></span>
             </Fragment>}
           {thirdLoad && <Fragment>
               <BestDeals thirdLoad={thirdLoad}/>
               <span id="test4"></span>
-            </Fragment>}
-          {fourthLoad && <HotCategories fourthLoad={fourthLoad}></HotCategories>}
+            </Fragment>} 
+          {fourthLoad && <HotCategories></HotCategories>}
         </main>
       </section>
       <section className="mt-20">

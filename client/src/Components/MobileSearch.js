@@ -64,13 +64,7 @@ export const MobileSearch = () => {
         closeScroll.style.position = "fixed"
     }
 
-    return <div className='sm:hidden w-[90%] m-auto justify-evenly items-center xxs:flex'>
-    <Fragment>
-        <button className='flex-[1] flex justify-center xxs:ml-2 xs:ml-1 w-[26px]' onClick={displayBar}>
-    <img width={5} height={5} className="w-[24px] h-[24px]" src={List} alt="მენიუ"></img>
-</button> 
-    </Fragment>
-    <form onSubmit={search} className="relative flex-[12] justify-between ml-3 items-center bg-slate-50">
+    return <form onSubmit={search} className="sm:hidden w-full m-auto items-center xxs:flex relative justify-between items-center bg-slate-50">
         <div className='flex justify-between items-center h-[40px] w-full'>
             <input type='text' value={searchValue} onChange={(e) => changeInput(e.target.value)} className='pl-3 outline-none w-full bg-slate-50' placeholder='მოძებნე ინგლისურად...' />
             <button type='submit' className='p-3 sm:p-3 text-xl'>
@@ -89,5 +83,4 @@ export const MobileSearch = () => {
         </ul>
         }
     </form>
-    </div>
 }

@@ -106,7 +106,7 @@ const Dashboard = () => {
 
     return <HelmetProvider>
       <Helmet>
-        <title>Slashy - ჩემი ანგარიში</title>
+        <title>Slash - ჩემი ანგარიში</title>
       </Helmet>
       <div className="sm:flex-[11]">
     <div className="sm:w-[80%] flex gap-10 flex-col m-auto mt-10">
@@ -172,7 +172,7 @@ const Dashboard = () => {
                 </div>
               );
             }) : <Fragment>
-            <a href="/dashboard/add" className="xxs:w-full sm:w-auto text-xs px-3 py-2 text-white bg-[rgb(251,77,1)] rounded hover:bg-[rgb(231,57,1)]">დაამატე მისამართი</a>
+            <a href="/dashboard/add" className="text-center w-auto text-xs px-3 py-2 text-white bg-[rgb(251,77,1)] rounded hover:bg-[rgb(231,57,1)]">დაამატე მისამართი</a>
           </Fragment>}
           </div>
           </Fragment>

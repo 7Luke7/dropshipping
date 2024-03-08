@@ -1,3 +1,4 @@
+import { Helmet, HelmetProvider } from "react-helmet-async";
 import { Header } from "../Components/Header"
 import searchNav from "../Components/searchNav.json"
 import { Fragment, useEffect, useState } from "react"
@@ -37,6 +38,11 @@ const Category = () => {
     }, [inputText])
 
     return <Fragment>
+        <HelmetProvider>
+            <Helmet>
+                <title>Slash - კატეგორიები</title>
+            </Helmet>
+        </HelmetProvider>
         <Header></Header>
         <div id="closeScroll" className="mt-10 w-[70%] m-auto">
       <input onChange={inputHandler} value={inputText} className="shadow w-[20%] ml-5 appearance-none border border-t-0 border-l-0 border-r-0 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" type="text" autoFocus={true} placeholder="სასურველი კატეგორია" />

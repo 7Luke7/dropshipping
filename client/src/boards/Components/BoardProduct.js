@@ -11,7 +11,7 @@ export const BoardProduct = ({activity}) => {
           className="object-cover border w-full xxs:h-[215px] xs:h-[245px] lg:h-[195px] m-0 p-0 object-center"
           src={isLoading ? `${activity.bigImage}?x-oss-process=image/format,webp,image/resize,m_fill,w_30,h_30` : `${activity.bigImage}?x-oss-process=image/format,webp,image/resize,m_fill,w_179,h_190`}
           alt={activity.nameEn.substring(0, 60)}
-          onLoad={(e) => setIsLoading(false)}
+          onLoad={() => setIsLoading(false)}
       ></img>
           </div>
           <article itemScope itemType="https://schema.org/Product">

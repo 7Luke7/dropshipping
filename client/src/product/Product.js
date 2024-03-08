@@ -16,9 +16,7 @@ import { MediaCarousel } from "./Components/MediaCarousel"
 const Product = () => {
     const [product, setProduct] = useState({})
     const [quantity, setQuantity] = useState(1)
-    const [productImage, setProductImageSet] = useState([])
     const [warning, setWarning] = useState()
-    const [varientList, setVarientList] = useState()
     const [variantObj, setVariantObj] = useState({})
     const [isEmpty, setIsEmpty] = useState(false)
     const [displayDescription, setDisplayDescription] = useState(false)
@@ -43,104 +41,23 @@ const Product = () => {
             const request_data = await request.json();
             const data = request_data.data
 
-            if (!data) return setIsEmpty(true)
-            const mainImageSet = data.newImgList
+            if (!data) return setIsEmpty(true) 
 
-            if (data.isHaveVideo === "HAVE_VIDEO") {
-                const request = await fetch("https://m.cjdropshipping.com/product-api/businessVideo/selectVideoListByLocProductId", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
-                    cache: "force-cache",
-                    body: JSON.stringify({
-                        locProductId: id
-                    }),
-                    credentials: "omit",
-                })
+            const split_keys = data.VARIANTKEYEN.split("-")
 
-                if (!request.ok) {
-                    throw new Error(request.status);
-                }
-
-                const videoData = await request.json()
-                videoData.data.forEach((vl) => {
-                    mainImageSet.unshift({image: vl.coverURL, video: vl.videoUrl})
-                })
-            } 
-            
-            setProductImageSet(mainImageSet)
-
-            const product_translated = await translate([data.VARIANTKEYEN, data.MATERIALEN, data.MATERIALKEY, data.CATEGORY, data.NAMEEN, data.DESCRIPTION])
-
-            data["VARIANTKEYEN"] = product_translated[0][0]
-            data["MATERIALEN"] = product_translated[0][1]
-            data["MATERIALKEY"] = product_translated[0][2]
-            data["CATEGORY"] = product_translated[0][3]
-            data["NAMEEN"] = product_translated[0][4]
-            data["DESCRIPTION"] = product_translated[0][5]
-
-            const productDtl = data;
-            const stanProducts = productDtl.stanProducts
-        
-            const varientArr = []
-            const oriColorMap = {};
-            const _variantKeys =  productDtl.VARIANTKEYEN;
-            const varientKeys = _variantKeys.split('-');
-
-            for (let i = 0; i < varientKeys.length; i++) {
-                varientArr.push({
-                    name: varientKeys[i],
-                    key: []
-                });
+            const product_translated = await translate([...split_keys, data.MATERIALEN, data.CATEGORY, data.NAMEEN, data.DESCRIPTION])
+            const mod_keys = [] 
+            const v_keys_length = split_keys.length
+            for(let i = 0; i < v_keys_length; i++) {
+                mod_keys.push(product_translated[0][i])
             }
 
-            for (let i = 0; i < stanProducts.length; i++) {
-                if (stanProducts[i].VARIANTKEY != null) {
-                const curVarientVal = stanProducts[i].VARIANTKEY.split('-');
+            data["VARIANTKEYEN"] = mod_keys
+            data["MATERIALEN"] = product_translated[0][v_keys_length]
+            data["CATEGORY"] = product_translated[0][v_keys_length + 1]
+            data["NAMEEN"] = product_translated[0][v_keys_length + 2]
+            data["DESCRIPTION"] = product_translated[0][v_keys_length + 3]
 
-                for (let j = 0; j < curVarientVal.length; j++) {
-                    if (varientArr[j] && !varientArr[j].key.includes(curVarientVal[j])) {
-                        varientArr[j].key.push(curVarientVal[j]);
-                        oriColorMap[curVarientVal[j]] = stanProducts[i].IMG;
-                    }                    
-                }
-                }
-            }
-            
-            for (let i = 0; i < varientArr.length; i++) {
-                varientArr[i].keyObj = [];
-                varientArr[i].keyObj = [];
-
-                varientArr[i].currKey = null;
-                for (let j = 0; j < varientArr[i].key.length; j++) {
-                    varientArr[i].keyObj.push({
-                        name: varientArr[i].key[j],
-                        eng_name: varientArr[i].key[j],
-                        disable: false,
-                        img: oriColorMap[varientArr[i].key[j]]
-                    });
-                }
-            }
-
-            const final_array = []
-            for (let i = 0; i < varientArr.length; i++) {
-                final_array.push(varientArr[i].key)
-            }
-            
-            for (let i = 0; i < final_array.length; i++) {
-                const product_translated = await translate(final_array[i])
-
-                varientArr[i].key.length = 0;
-                for (let j = 0; j < varientArr[i].keyObj.length; j++) {
-                    varientArr[i].keyObj[j].name = product_translated[0][j]
-                }
-
-                varientArr[i].key = product_translated[0]
-            }
-
-            setVariantObj(variantObj[productDtl.stanProducts[0].VARIANTKEY] = productDtl.stanProducts[0])
-            setVarientList(varientArr)
             setProduct(data)
             } catch (error) {
                 console.log(error);
@@ -150,14 +67,41 @@ const Product = () => {
         getProductDetail();
       }, [id]);
 
-      const changeVarientArr = (cueSele, curVarIndex) => {
+      const changeVarientArr = (cueSele, curVarIndex, pv, setVarientList, index) => {
         //cueSele -- Current key
         //curVarIndex -- Current Index
 
-        console.log(cueSele, curVarIndex)
+        const all_variants_possible = product.stanProducts
+    
+        // for (let i = 0; i < all_variants_possible.length; i++) {
+        //     all_variants_possible[]
+        // }
+
+        console.log(cueSele, curVarIndex, pv, index)
+        setVarientList((prev) => {
+            const filtered_variants = prev.filter((p) => {
+                if (p.name === prev[index].name) {
+                    return
+                }
+                return prev
+            })
+
+            for (let i = 0; i < filtered_variants.length; i++) {
+                for (let j = 0; j < filtered_variants[i].keyObj.length; j++) {
+                    console.log(filtered_variants[i].keyObj[j].img, cueSele.img)
+                    if (filtered_variants[i].keyObj[j].img !== cueSele.img) {
+                        filtered_variants[i].keyObj[j].disable = true
+                    } else {
+                        filtered_variants[i].keyObj[j].disable = false
+                    }
+                }
+            }
+            console.log(filtered_variants)
+            return prev
+        })
       }
 
-    const addToCart = async () => {
+    const addToCart = async  () => {
         if (Object.keys(variantObj).length === 0) {
             return setWarning("image")
         } 
@@ -216,7 +160,7 @@ const Product = () => {
                 <img src={RemovedProduct} alt="პროდუქტი წაშლილია"></img>
                 <div className="flex items-center flex-col gap-2">
                     <h1 className="text-slate-600">პროდუქტი ამოღებულია</h1>
-                    <button onClick={() => navigate.back()} className="bg-[rgb(251,75,6)] text-white rounded py-1 px-2">
+                    <button onClick={() => window.history.back()} className="bg-[rgb(251,75,6)] text-white rounded py-1 px-2">
                         უკან დაბრუნება
                     </button>
                 </div>
@@ -255,20 +199,20 @@ const Product = () => {
                 <Helmet>
         <meta
           name="description"
-          content={`${product.NAMEEN} - Slashy.ge`}
+          content={`${product.NAMEEN} - Slash.ge`}
         />
         <meta
           name="keywords"
-          content={`Slashy, Slashy.ge, ${product.NAMEEN}`}
+          content={`Slash, Slash.ge, ${product.NAMEEN}`}
         />
         <link rel="canonical" href={window.location.href} />
-        <title>{product.NAMEEN} - Slashy.ge</title>
+        <title>{product.NAMEEN} - Slash.ge</title>
 
         <meta property="og:type" content="website" />
-        <meta property="og:title" content={`შეიძინე - ${product.NAMEEN} - Slashy.ge`}/>
+        <meta property="og:title" content={`შეიძინე - ${product.NAMEEN} - Slash.ge`}/>
         <meta
           property="og:description"
-          content={`${product.NAMEEN} - Slashy.ge`}
+          content={`${product.NAMEEN} - Slash.ge`}
         />
         <meta
           property="og:image"
@@ -294,8 +238,8 @@ const Product = () => {
             <ChildCategories product={product}></ChildCategories>
             
             <div className="flex sm:gap-3 lg:gap-0 w-full lg:flex-row xxs:flex-col lg:h-full">
-                <div className="flex xxs:w-full h-full lg:w-[451px] outline outline-1 outline-gray-100 flex-col">
-                    <MediaCarousel product={product} productImage={productImage}></MediaCarousel>
+                <div className="flex xxs:w-full h-full lg:w-[450px] outline outline-1 outline-gray-100 flex-col">
+                    <MediaCarousel product={product} id={id}></MediaCarousel>
                 </div>
                 <div className="flex xxs:mt-5 lg:mt-0 justify-between w-full lg:h-full lg:ml-8 flex-col">
                 
@@ -341,7 +285,7 @@ const Product = () => {
                         </div>
                         </div>
                         
-                        <ProductVariants changeVarientArr={changeVarientArr} varientList={varientList} warning={warning}></ProductVariants>
+                        <ProductVariants changeVarientArr={changeVarientArr} product={product} variantObj={variantObj} setVariantObj={setVariantObj} warning={warning}></ProductVariants>
                     
                     <div className="w-full flex xxs:flex-col xxs:items-start sm:flex-row gap-3 sm:items-center lg:items-start mt-2 justify-between h-full lg:h-1/2">
                     <div className="flex lg:w-3/4 xl:w-1/3 flex-col xl:justify-between h-full w-full gap-5">
@@ -376,7 +320,7 @@ const Product = () => {
         }
     
         return null;
-      }, [isEmpty, productImage, product]);
+      }, [isEmpty, product]);
 
     return <Fragment>
         <Header></Header>

@@ -15,6 +15,7 @@ export const Filter = memo(({isVideo, countryCode}) => {
     }, [])
 
     const filterByPrice = (e) => {
+      window.scrollTo(0, 0)
       e.preventDefault();
       if (minPrice !== "") {
         searchParams.set("startSellPrice", minPrice);
@@ -36,6 +37,7 @@ export const Filter = memo(({isVideo, countryCode}) => {
     };
 
     const check_func = (e) => {
+      window.scrollTo(0, 0)
       if (e.target.value === countryCode) {
         searchParams.delete("countryCode")
       } else {
@@ -53,6 +55,7 @@ export const Filter = memo(({isVideo, countryCode}) => {
     };
 
     const changeProductType = () => {
+        window.scrollTo(0, 0)
         if (searchParams.has('productType')) {
           searchParams.delete("productType")
         } else {

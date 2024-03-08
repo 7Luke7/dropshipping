@@ -2,7 +2,7 @@ import { ProductListings } from "./ProductListings";
 import { memo, useEffect, useState } from "react";
 import { translate } from "./Translate";
 
-export const VideoProducts = memo(({thirdLoad}) => {
+export const VideoProducts = memo(() => {
   const [videoProducts, setVideoProducts] = useState([])
   useEffect(() => {
     const fetch_new_products = async () => {

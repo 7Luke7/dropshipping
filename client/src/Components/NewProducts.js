@@ -2,7 +2,7 @@ import { memo, useEffect, useState } from "react";
 import { ProductListings } from "./ProductListings";
 import { translate } from "./Translate";
 
-export const NewProducts = memo(({firstLoad}) => {
+export const NewProducts = memo(() => {
   const [newProducts, setNewProducts] = useState([])
   useEffect(() => {
     const fetch_new_products = async () => {

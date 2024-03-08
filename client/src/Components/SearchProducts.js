@@ -77,16 +77,16 @@ export const SearchProducts = () => {
         }  
     }
     
-    return <form onSubmit={search} onKeyDown={handleKeyDown} className="xxs:hidden sm:flex w-full  flex-col flex-[5] sm:ml-3 relative lg:ml-2 justify-center bg-slate-50">
-    <div className='flex justify-between items-center w-full'>
-        <input type='text' value={searchValue} onChange={(e) => changeInput(e.target.value)} className={`md:text-base sm:block p-2 w-full outline-none bg-slate-50 ${suggestion && suggestion.length > 0 ? "rounded-0" : "rounded-2xl"}`} placeholder='მოძებნე ინგლისურად...' />
+    return <form onSubmit={search} onKeyDown={handleKeyDown} className={`xxs:hidden ${suggestion && !suggestion.length ? "rounded-2xl" : "rounded-none"} sm:flex w-full flex-col flex-[5] sm:ml-3 relative lg:ml-2 justify-center bg-slate-50`}>
+        <div className='flex justify-between items-center w-full'>
+        <input type='text' value={searchValue} onChange={(e) => changeInput(e.target.value)} className={`md:text-base ${suggestion && !suggestion.length ? "rounded-2xl" : "rounded-none"} sm:block p-2 w-full outline-none bg-slate-50`} placeholder='მოძებნე ინგლისურად...' />
             <button type='submit' className='flex items-center px-2 bg-slate-50'>
                 <img width={24} height={24} alt="მოძებნე" src={Search}></img>
             </button>
         </div>
         {suggestion && suggestion.length > 0 && <main className='flex p-1 bg-slate-50 absolute flex-col top-0 w-full translate-y-[40px] justify-between'> 
         {suggestion.map((sug, i) => {
-            return  <a href={`/search?page=1&keyword=${sug}`} key={i} onMouseOver={() => setCurrentKeyPos(i)} className={`${i === currentKeyPos && "bg-slate-200"} rounded cursor-pointer p-1`} onClick={() =>  {
+            return <a href={`/search?page=1&keyword=${sug}`} key={i} onMouseOver={() => setCurrentKeyPos(i)} className={`${i === currentKeyPos && "bg-slate-200"} rounded cursor-pointer p-1`} onClick={() =>  {
                     setSuggestion([])
                     setSearchValue("")
                 }}>

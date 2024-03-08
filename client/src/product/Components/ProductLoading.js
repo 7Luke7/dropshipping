@@ -1,8 +1,6 @@
 import { Fragment } from "react";
 
-export const ProductLoading = () => {
-    const iteration_number = 7
-    
+export const ProductLoading = () => {    
     return <div className="h-full w-full mx-auto"> 
     <div className="xxs:w-[95%] mobl:w-[90%] lg:w-[90%] sm:w-[80%] mx-auto">
     <div className="flex xxs:hidden lg:flex sm:flex">
@@ -10,7 +8,7 @@ export const ProductLoading = () => {
             return (
                 <div key={i} className="flex items-center">
                     <div className="bg-gray-200 w-[80px] h-[10px] rounded animate-pulse"></div>
-                    <span>/</span>
+                    <span className="text-xs">\</span>
                 </div>
             );
         })}
@@ -18,15 +16,12 @@ export const ProductLoading = () => {
     
     <div className="flex sm:gap-3 lg:gap-0 w-full lg:flex-row xxs:flex-col lg:h-full">
         <div className="flex xxs:w-full h-full lg:w-[451px]  flex-col">
-            <div className="bg-gray-200 xxs:w-full lg:w-[451px] xxs:h-[400px] lg:h-[450px]"></div>
-            <div className="flex justify-around items-center xxs:h-[95px] lg:h-[60px] border gap-1 p-1">
-                {iteration_number !== 0 && [...Array(iteration_number)].map((_, i) => {
-                    return <div key={i} className="animate-pulse bg-gray-200 rounded p-1 lg:h-[50px] xxs:h-[90px] w-full outline-none"></div>
-                })}
+            <div className="bg-gray-200 animate-pulse xxs:w-full lg:w-[451px] xxs:h-[400px] lg:h-[450px]"></div>
+            <div className="xxs:h-[95px] lg:h-[60px] border p-1">
             </div>
         </div>
         <div className="flex xxs:mt-5 lg:mt-0 justify-between w-full lg:h-full lg:ml-8 flex-col">
-        <div className="bg-gray-200 xxs:min-h-[30px] lg:min-h-[73px] w-full rounded"></div>
+        <div className="bg-gray-200 xxs:min-h-[30px] animate-pulse lg:min-h-[73px] w-full rounded"></div>
             <Fragment>
                 {[1,2].map((a,i) => {
                     <div key={i} className="bg-gray-300 h-[30px] mt-1 rounded w-full animate-pulse"></div>
