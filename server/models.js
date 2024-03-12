@@ -31,14 +31,12 @@ const cartSchema = new mongoose.Schema({
 
 const userSchema = new mongoose.Schema({
     phone: {
-      type: String,
-      unique: true,
-      index: true
+        type: String,
+        unique: true,
     },
     email: {
         type: String,
         unique: true,
-        index: true,
     },
     password: {
         type: String,

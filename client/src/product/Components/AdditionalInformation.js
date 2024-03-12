@@ -24,6 +24,7 @@ export const AdditionalInformation = memo(({id, product}) => {
                     body: JSON.stringify({
                         pageNumber: page,
                         pageSize: 10,
+                        score: 4,
                         productId: id,
                     }),
                 });

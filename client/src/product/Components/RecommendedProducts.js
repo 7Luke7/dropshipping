@@ -2,7 +2,7 @@ import { Fragment, useMemo, useEffect, useState, memo } from "react"
 import { translate } from "../../Components/Translate"
 import { RecomProducts } from "./RecomProducts"
 
-export const RecommendedProducts = memo(({id}) => {
+const RecommendedProducts = memo(({id}) => {
     const [recommendedProducts, setRecommendedProducts] = useState()
 
     useEffect(() => {
@@ -92,4 +92,5 @@ export const RecommendedProducts = memo(({id}) => {
     return render
 })
 
+export default RecommendedProducts
 RecommendedProducts.displayName = "RecommendedProducts"

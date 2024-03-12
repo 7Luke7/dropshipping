@@ -1,60 +1,16 @@
 import { Header } from "../Header"
 import { Navigation } from "../Navigation"
 import {TrendingProducts} from "../TrendingProducts"
-import {BestDeals} from "../BestDeals"
 import {Footer} from "../Footer"
-import {NewProducts} from "../NewProducts"
-import {HotCategories} from "../HotCategories"
-import {VideoProducts} from "../VideoProducts"
-import { Fragment, useEffect, useState } from "react"
+import { Fragment, Suspense, lazy } from "react"
 import { Helmet, HelmetProvider } from "react-helmet-async"
 
-function observeElement(id, callback) {
-  const element = document.getElementById(id);
-
-  if (!element) return;
-
-  const options = {
-    root: null,
-    rootMargin: '0px',
-    threshold: 1,
-  };
-
-  const observer = new IntersectionObserver((entries, observer) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        callback();
-        observer.unobserve(element);
-      }
-    });
-  }, options);
-
-  observer.observe(element);
-}
+const VideoProducts = lazy(() => import("../VideoProducts"))
+const HotCategories = lazy(() => import("../HotCategories"))
+const NewProducts = lazy(() => import("../NewProducts"))
+const BestDeals = lazy(() => import("../BestDeals"))
 
 export const Landing = () => {
-  const [firstLoad, setFirstLoad] = useState(false)
-  const [secondLoad, setSecondLoad] = useState(false)
-  const [thirdLoad, setThirdLoad] = useState(false)
-  const [fourthLoad, setFourthLoad] = useState(false)
-
-  useEffect(() => {
-    if (!firstLoad) {
-      observeElement('test1', () => setFirstLoad(true));
-    }
-    if (firstLoad) {
-      observeElement('test2', () => setSecondLoad(true));
-    }
-    if (secondLoad) {
-      observeElement('test3', () => setThirdLoad(true));
-
-    }
-    if (thirdLoad) {
-      observeElement('test4', () => setFourthLoad(true));
-    }
-  }, [firstLoad, secondLoad, thirdLoad]);
-
-
   return <Fragment>
     <HelmetProvider>
     <Helmet>
@@ -99,21 +55,18 @@ export const Landing = () => {
         <Navigation></Navigation>
         <main className="sm:w-full xs:w-[90%] xxs:w-[80%] m-auto">
           <TrendingProducts />
-          <span id="test1"></span>
-          {firstLoad && 
-          <Fragment>
-            <NewProducts></NewProducts>
-            <span id="test2"></span>
-          </Fragment>}
-          {secondLoad && <Fragment>
+            <Suspense fallback={<div>hello</div>}>
+              <NewProducts></NewProducts>
+            </Suspense>
+            <Suspense fallback={<div>hello</div>}>
               <VideoProducts></VideoProducts>
-              <span id="test3"></span>
-            </Fragment>}
-          {thirdLoad && <Fragment>
-              <BestDeals thirdLoad={thirdLoad}/>
-              <span id="test4"></span>
-            </Fragment>} 
-          {fourthLoad && <HotCategories></HotCategories>}
+            </Suspense>
+            <Suspense fallback={<div>hello</div>}>
+              <BestDeals></BestDeals>
+            </Suspense>
+            <Suspense fallback={<div>hello</div>}>
+              <HotCategories></HotCategories>
+            </Suspense>
         </main>
       </section>
       <section className="mt-20">

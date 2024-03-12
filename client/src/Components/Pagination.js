@@ -59,7 +59,7 @@ export const Pagination = memo(({page, total}) => {
     }
 
 
-    return <nav className="h-10 sticky shadow-lg bg-white items-end bottom-0  left-1/2 z-50 w-full flex justify-center">
+    return <nav className="h-10 sticky shadow-lg bg-white items-end bottom-0 left-1/2 z-50 w-full flex justify-center">
     <ul className="flex items-center justify-end space-x-2 xs:space-x-1 xxs:space-x-0">
     <div className="flex items-center">
     <a href="#header_container" disabled={numPage === 1} onClick={() => navigateTo(pageArray[0])} className="p-1">

@@ -4,11 +4,10 @@ import RightArrow from "../../public/arrow-right.svg"
 import { Fragment, memo, useEffect, useMemo, useRef, useState } from "react";
 import {SingleCarouselItem} from "./SingleCarouselItem"
 
-export const MediaCarousel = memo(({product, id}) => {
-    const [curr, setCurr] = useState({})
+export const MediaCarousel = memo(({product, curr, setCurr, id}) => {
     const [isMainLoading, setIsMainLoading] = useState(true)
     const [productImage, setProductImageSet] = useState([])
-
+    
     const slider = useRef(null); 
 
     useEffect(() => {
@@ -40,6 +39,7 @@ export const MediaCarousel = memo(({product, id}) => {
                         imageURL: mainImageSet[0],
                         index: 0
                     })
+
                 } else {
                     setCurr({
                         imageURL: mainImageSet[0],
@@ -55,24 +55,28 @@ export const MediaCarousel = memo(({product, id}) => {
         fetch_media()
     }, [product.isHaveVideo])
 
+    useEffect(() => {
+        slider.current && slider.current.slickGoTo(curr.index)
+    }, [curr])
+
     const settings = useMemo(() => {
         return {
             speed: 200,
-            infinite: false,
-            slidesToShow: 7,    
+            infinite: productImage.length >= 7 ? true : false,
+            slidesToShow: productImage.length >= 7 ? 7 : productImage.length,   
             swipe: false,
             adaptiveHeight: true,
             slidesToScroll: 1,
-            arrows: false,
+            arrows: false,  
             lazyLoad: true,
             responsive: [
                 {
                   breakpoint: 768,
                   settings: {
-                    infinite: false,
                     speed: 200,
                     swipe: false,
-                    slidesToShow: 3,    
+                    infinite: productImage.length >= 3 ? true : false,
+                    slidesToShow: productImage.length >= 3 ? 3 : productImage.length,   
                     adaptiveHeight: true,
                     slidesToScroll: 1,
                     arrows: false,
@@ -83,9 +87,9 @@ export const MediaCarousel = memo(({product, id}) => {
           
         }
     })
-    
+
     return <Fragment>
-        <div className="xxs:w-full lg:w-[450px] h-full">
+        <div className="xxs:w-full xl:w-[450px] h-full">
         {curr && curr.imageURL && curr.imageURL.includes(".mp4") ? <div className="relative outline-none w-full h-full">
             <video src={curr.imageURL} playsInline width={854} height={480} alt="მთავარი ვიდეო" autoPlay controls muted className="w-full xxs:h-[400px] lg:h-[450px] aspect-video object-contain object-center">
             </video>
@@ -101,34 +105,24 @@ export const MediaCarousel = memo(({product, id}) => {
                     return
                 }
             }}  
-            className="w-full xxs:h-[400px] lg:h-[450px] xxs:object-contain lg:object-cover">
-        </img> : <div className="bg-gray-200 xxs:w-full lg:w-[450px] xxs:h-[400px] lg:h-[450px]"></div>}
+            className="w-full xxs:h-[400px] lg:h-[450px] xl:w-[450px] xxs:object-contain lg:object-cover">
+        </img> : <div className="bg-gray-200 xxs:w-full xl:w-[450px] xxs:h-[400px] lg:h-[450px]"></div>}
         </div>
         <div className="relative xxs:min-h-[100px] border-b-0 border-l-0 border-r-0 border lg:min-h-[60px] w-full">
             {productImage.length > 0 && 
                     <Fragment>
                         {window.innerWidth > 768 && settings.slidesToShow < productImage.length ? <>
-                            <button onClick={() =>  slider.current.slickPrev()} className="absolute xxs:p-3 z-50 bg-[rgb(255,255,255,.9)] top-[1%] bottom-0 left-0 lg:p-1 sm:p-3">
+                            <button onClick={() => slider.current.slickPrev()} className="absolute xxs:p-3 z-50 bg-[rgb(255,255,255,.9)] top-[1%] bottom-0 left-0 lg:p-1 sm:p-3">
                                 <img src={LeftArrow} width={14} height={14} alt="წინა" loading="lazy"></img>
                             </button>
-                            <button className="absolute z-50 p-1 bg-[rgb(255,255,255,.9)] top-0 bottom-0 xxs:p-3 sm:p-3 lg:p-1 right-0" onClick={() => {
-                                if (productImage.length - slider.current.innerSlider.state.currentSlide + 1 === 8) {
-                                    return
-                                }
-                                slider.current.slickNext()
-                            }}>
+                            <button className="absolute z-50 p-1 bg-[rgb(255,255,255,.9)] top-0 bottom-0 xxs:p-3 sm:p-3 lg:p-1 right-0" onClick={() => slider.current.slickNext()}>
                                 <img src={RightArrow} width={14} height={14} alt="შემდეგი" loading="lazy"></img>
                             </button>
                         </> : window.innerWidth < 768 && settings.responsive[0].settings.slidesToShow < productImage.length && <>
                             <button onClick={() =>  slider.current.slickPrev()} className="absolute xxs:p-3 z-50 bg-[rgb(255,255,255,.9)] top-[1%] bottom-0 left-0 lg:p-1 sm:p-3">
                                 <img src={LeftArrow} width={14} height={14} alt="წინა" loading="lazy"></img>
                             </button>
-                            <button className="absolute z-50 p-1 bg-[rgb(255,255,255,.9)] top-0 bottom-0 xxs:p-3 sm:p-3 lg:p-1 right-0" onClick={() => {
-                                if (productImage.length - slider.current.innerSlider.state.currentSlide + 1 === 4) {
-                                    return
-                                }
-                                slider.current.slickNext()
-                            }}>
+                            <button className="absolute z-50 p-1 bg-[rgb(255,255,255,.9)] top-0 bottom-0 xxs:p-3 sm:p-3 lg:p-1 right-0" onClick={() => slider.current.slickNext()}>
                                 <img src={RightArrow} width={14} height={14} alt="შემდეგი" loading="lazy"></img>
                             </button>
                         </>}

@@ -12,8 +12,8 @@ export const CategoryBar = () => {
         const catBar = document.getElementById("catBar")
         catBar.style.display = "none"
 
-        closeScroll.style.oveflow = "auto"
-        closeScroll.style.position = "static"
+        closeScroll.style.overflow = "visible";
+        closeScroll.style.position = "relative"
     }
 
     const expandCategory = (cat) => {

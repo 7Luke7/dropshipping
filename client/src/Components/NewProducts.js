@@ -1,8 +1,8 @@
-import { memo, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { ProductListings } from "./ProductListings";
 import { translate } from "./Translate";
 
-export const NewProducts = memo(() => {
+const NewProducts = () => {
   const [newProducts, setNewProducts] = useState([])
   useEffect(() => {
     const fetch_new_products = async () => {
@@ -55,6 +55,7 @@ export const NewProducts = memo(() => {
       <ProductListings products={newProducts}></ProductListings>
     </div>  
 </div>
-})
+}
 
+export default NewProducts
 NewProducts.displayName = 'NewProducts';

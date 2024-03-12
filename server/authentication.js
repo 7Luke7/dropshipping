@@ -33,8 +33,7 @@ const register_user = async (req, res, next) => {
             if (err) throw new customError({message: "დაფიქსირდა გაუთვალისწინებელი შეცდომა, სცადეთ მოგვიანებით.", status: 500}).Authentication()
 
             const user = new User({
-                ...(req.body.emailPhone.includes("@") ? { email: req.body.emailPhone} : {}),
-                ...(req.body.emailPhone.includes("@") ? {} : { phone: req.body.emailPhone }),
+                ...(emailRegex.test(req.body.emailPhone) ? { email: req.body.emailPhone} : {phone: req.body.emailPhone}),
                 password: hashedPassword.toString("hex"),
                 salt: salt
             });

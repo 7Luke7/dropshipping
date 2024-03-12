@@ -1,8 +1,8 @@
-import { Fragment, memo, useEffect, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { translate } from "./Translate";
 import { HotCategoriesList } from "./HotCategoriesList";
 
-export const HotCategories = memo(() => {
+const HotCategories = () => {
   const [hotCategories, setHotCategories] = useState([])
   useEffect(() => {
     const fetch_hot_categories = async () => {
@@ -69,6 +69,7 @@ export const HotCategories = memo(() => {
       </div>
     </div>
   );
-})
+}
 
+export default HotCategories
 HotCategories.displayName = 'HotCategories';

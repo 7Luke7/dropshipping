@@ -1,8 +1,7 @@
-import { Fragment, memo } from "react"
+import { Fragment } from "react"
 import {Product} from "./Product"
 
-export const ProductListings = memo(({products}) => {
-
+export const ProductListings = ({products}) => {
     return <div className="grid lg:grid-cols-5 xl:grid-cols-5 mt-5 gap-y-7 sm:grid-cols-3 md:grid-cols-4 xs:grid-cols-2 xxs:place-items-center">
         {products.length === 0 ? [1,2,3,4,5].map((a, index) => {
             return <div key={index} className="animate-pulse xs:w-[150px] sm:w-[160px] md:w-[140px] mobl:w-[170px] xxs:w-[200px] lg:w-[140px] xl:w-[180px]">
@@ -27,4 +26,4 @@ export const ProductListings = memo(({products}) => {
             </Fragment>
         })}
     </div>
-})
+}

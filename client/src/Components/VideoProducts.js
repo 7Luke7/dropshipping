@@ -1,20 +1,23 @@
 import { ProductListings } from "./ProductListings";
-import { memo, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { translate } from "./Translate";
 
-export const VideoProducts = memo(() => {
+const VideoProducts = () => {
   const [videoProducts, setVideoProducts] = useState([])
   useEffect(() => {
     const fetch_new_products = async () => {
       try {
-        const request = await fetch("https://cjdropshipping.com/elastic-api/cj/homePage/getTop5UnsoldProduct", {
+        const request = await fetch("https://cjdropshipping.com/elastic-api/cj/homePage/v2/selectNewProductList", {
           method: "POST",
-          credentials: "omit",
           headers: {
-              "Content-Type": "application/json",
+              "Content-Type": "application/json"
           },
-          body: JSON.stringify({}),
-        })
+          credentials: "omit",
+          body: JSON.stringify({
+              "pageSize": 5,
+              "timeFlag": "video"
+          }),
+      })
               
         const data = await request.json()
 
@@ -51,6 +54,7 @@ export const VideoProducts = memo(() => {
     <ProductListings products={videoProducts}></ProductListings>
   </div>  
 </div>
-})
+}
 
+export default VideoProducts
 VideoProducts.displayName = 'VideoProducts';

@@ -84,20 +84,20 @@ const Search = () => {
 
     return <section className="relative min-h-screen">
         <div id="mobile_filter_component" className='fixed hidden z-[100] left-0 h-screen overflow-y-scroll bg-white right-0 top-0 bottom-0 -transform-translate-x-[100%] duration-200'>
-                    <button className='absolute right-5 top-3' onClick={() => 
-                    {
-                      document.getElementById("mobile_filter_component").style.display = "none"
-                      const closeScroll = document.getElementById("closeScroll")
-                      closeScroll.style.overflow = "auto"
-                      closeScroll.style.position = "static"
-                    }
-                  }>
-                    <img src={Close} width={24} height={24} alt="მენიუს დახურვა" decoding='lazy'></img>
-                    </button>
-                  <div className="mt-20">
-                    <Filter isVideo={isVideo} countryCode={countryCode} minInput={minInput} maxInput={maxInput}></Filter>
-                  </div>
-              </div>
+            <button className='absolute right-5 top-3' onClick={() => 
+            {
+              document.getElementById("mobile_filter_component").style.display = "none"
+              const closeScroll = document.getElementById("closeScroll")
+              closeScroll.style.overflow = "visible";
+              closeScroll.style.position = "relative"
+            }
+          }>
+            <img src={Close} width={24} height={24} alt="მენიუს დახურვა" decoding='lazy'></img>
+            </button>
+          <div className="mt-20">
+            <Filter isVideo={isVideo} countryCode={countryCode} minInput={minInput} maxInput={maxInput}></Filter>
+          </div>
+      </div>
         <Header></Header>
         <div id="closeScroll" className="flex flex-col justify-between m-auto">
 

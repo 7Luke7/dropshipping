@@ -1,22 +1,19 @@
-import { memo, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import {ProductListings} from "./ProductListings.js"
 import { translate } from "./Translate.js";
 
-export const BestDeals = memo(({secondLoad}) => {
+const BestDeals = () => {
   const [products, setProducts] = useState([])
   useEffect(() => {
-    const fetch_new_products = async () => {
+    const fetch_best_deals = async () => {
       try {
-        const request = await fetch("https://cjdropshipping.com/elastic-api/cj/homePage/v2/selectNewProductList", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            credentials: "omit",
-            body: JSON.stringify({
-                "pageSize": 5,
-                "timeFlag": "video"
-            }),
+        const request = await fetch("https://cjdropshipping.com/elastic-api/cj/homePage/getTop5UnsoldProduct", {
+          method: "POST",
+          credentials: "omit",
+          headers: {
+              "Content-Type": "application/json",
+          },
+          body: JSON.stringify({}),
         })
         
         const data = await request.json()
@@ -40,9 +37,10 @@ export const BestDeals = memo(({secondLoad}) => {
         console.log(error);
       }
     }
-    fetch_new_products()
+    fetch_best_deals()
   }, [])
-  return <div id="best_deals" className="relative hidden mt-14 w-[100%] m-auto">
+
+  return <div id="best_deals" className="relative mt-14 w-[100%] m-auto">
   <div className="bg-[rgb(230,230,230,.2)] p-4 rounded-2xl">
   <div className="md:mx-5 lg:mx-2 xl:mx-5">
   <h1 className="xxs:text-md md:text-lg text-gray-900 font-bold">
@@ -52,6 +50,7 @@ export const BestDeals = memo(({secondLoad}) => {
     <ProductListings products={products}></ProductListings>
   </div>  
 </div>
-})
+}
 
+export default BestDeals
 BestDeals.displayName = 'BestDeals';

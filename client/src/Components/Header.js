@@ -7,7 +7,7 @@ import { memo } from "react";
 
 // on up scroll show header
 
-export const Header = () => {
+export const Header = memo(() => {
     const MemoizedCategoryBar = memo(CategoryBar)
     const MemoizedHeaderLogo = memo(HeaderLogo)
     const MemoizedSearchProducts = memo(SearchProducts)
@@ -24,6 +24,6 @@ return <div id="header_container" className='relative'>
 </header>
     <MemoizedCategoryBar></MemoizedCategoryBar>
     </div>
-}
+})
 
 Header.displayName = 'Header';

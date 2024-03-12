@@ -2,7 +2,7 @@ import { Fragment, memo, useEffect, useState } from "react";
 import { Variants } from "./Variants";
 import { translate } from "../../Components/Translate";
 
-export const ProductVariants = memo(({changeVarientArr, product, variantObj, setVariantObj, warning}) => {
+export const ProductVariants = memo(({changeVarientArr, product}) => {
     const [varientList, setVarientList] = useState()
 
     useEffect(() => {
@@ -11,7 +11,7 @@ export const ProductVariants = memo(({changeVarientArr, product, variantObj, set
                 const productDtl = product;
                 const stanProducts = productDtl.stanProducts
             
-                const varientArr = []
+                const varientArr = []   
                 const oriColorMap = {};
                 const varientKeys = productDtl.VARIANTKEYEN
 
@@ -26,12 +26,12 @@ export const ProductVariants = memo(({changeVarientArr, product, variantObj, set
                     if (stanProducts[i].VARIANTKEY != null) {
                     const curVarientVal = stanProducts[i].VARIANTKEY.split('-');
 
-                    for (let j = 0; j < curVarientVal.length; j++) {
-                        if (varientArr[j] && !varientArr[j].key.includes(curVarientVal[j])) {
-                            varientArr[j].key.push(curVarientVal[j]);
-                            oriColorMap[curVarientVal[j]] = stanProducts[i].IMG;
-                        }                    
-                    }
+                        for (let j = 0; j < curVarientVal.length; j++) {
+                            if (varientArr[j] && !varientArr[j].key.includes(curVarientVal[j])) {
+                                varientArr[j].key.push(curVarientVal[j]);
+                                oriColorMap[curVarientVal[j]] = stanProducts[i].IMG;
+                            }                    
+                        }
                     }
                 }
                 
@@ -63,7 +63,6 @@ export const ProductVariants = memo(({changeVarientArr, product, variantObj, set
                     varientArr[i].key = product_translated[0]
                 }
 
-                setVariantObj(variantObj[productDtl.stanProducts[0].VARIANTKEY] = productDtl.stanProducts[0])
                 setVarientList(varientArr)
             } catch (error) {
                 console.error(error)
@@ -80,7 +79,7 @@ export const ProductVariants = memo(({changeVarientArr, product, variantObj, set
             <div className="gap-2 flex flex-wrap">
             {pv.keyObj.map((v, i) => {
                 return <Fragment key={i}>
-                    <Variants v={v} i={i} pv={pv} index={index} setVarientList={setVarientList} changeVarientArr={changeVarientArr} warning={warning}></Variants>  
+                    <Variants v={v} i={i} pv={pv} index={index} setVarientList={setVarientList} changeVarientArr={changeVarientArr}></Variants>  
                 </Fragment>
             })}
             </div> 
