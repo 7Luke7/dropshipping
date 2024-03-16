@@ -26,7 +26,7 @@ const sess = session({
     }),
     cookie: {   
         secure: true,
-        samesSite: "none",
+        sameSite: "none",
         httpOnly: true
     }
 })
