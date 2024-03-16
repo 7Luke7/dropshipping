@@ -18,9 +18,11 @@ import Search from "./search/Search";
 import Product from "./product/Product";
 import Purchase from "./purchase/Purchase"
 import Category from "./category/Category"
+import { HelmetProvider } from "react-helmet-async";
 
 const App = () => {
-  return  <BrowserRouter>
+  return  <HelmetProvider>
+    <BrowserRouter>
   <Routes>
     <Route path="/" element={<Landing />} />
     <Route path="cart" element={<Cart />} />
@@ -37,9 +39,10 @@ const App = () => {
     <Route path="*" element={<NotFound />} />
     <Route path="product/:id" element={<Product />} />
     <Route path="category" element={<Category />} />
-    <Route path="purchase/:id" element={<Purchase />} />
+    <Route path="purchase" element={<Purchase />} />
   </Routes>
 </BrowserRouter>
+  </HelmetProvider>
 }
 
 export default App;

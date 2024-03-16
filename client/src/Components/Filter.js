@@ -68,7 +68,7 @@ export const Filter = memo(({isVideo, countryCode}) => {
         setSearchParams(searchParams);
       }
 
-    return <section className="border-t sticky top-[3%] xxs:w-full lg:w-[200px] border-gray-200">
+    return <section className="border-t sticky top-[10%] xxs:w-full lg:w-[200px] border-gray-200">
     <div className="border-t border-gray-200 w-full px-2 py-6">
     <h3 className="font-medium -my-3 text-gray-900">
         ფასი
@@ -97,6 +97,10 @@ export const Filter = memo(({isVideo, countryCode}) => {
           <div className="flex items-center">
             <input  id="გერმანია" name="გერმანია"  value="DE" type="checkbox" onChange={(e) => check_func(e)} checked={countryCode === "DE" ? true : false}  className="h-4 w-4 rounded border-gray-300 text-indigo-600" />
             <label htmlFor="გერმანია" className="ml-3 min-w-0 flex-1 text-gray-500">გერმანია</label>
+          </div>
+          <div className="flex items-center">
+            <input  id="საბერძნეთი" name="საბერძნეთი"  value="FR" type="checkbox" onChange={(e) => check_func(e)} checked={countryCode === "FR" ? true : false}  className="h-4 w-4 rounded border-gray-300 text-indigo-600" />
+            <label htmlFor="საბერძნეთი" className="ml-3 min-w-0 flex-1 text-gray-500">საბერძნეთი</label>
           </div>
           <div className="flex items-center">
             <input  id="დიდი ბრიტანეთი" name="დიდი ბრიტანეთი"  value="GB" type="checkbox" onChange={(e) => check_func(e)} checked={countryCode === "GB" ? true : false}  className="h-4 w-4 rounded border-gray-300 text-indigo-600" />

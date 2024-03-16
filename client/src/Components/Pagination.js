@@ -42,6 +42,7 @@ export const Pagination = memo(({page, total}) => {
       } 
 
       setSearchParams(searchParams);
+      window.scrollTo(0, 0)
     }
 
     const navigateForm = (e) => {
@@ -62,28 +63,28 @@ export const Pagination = memo(({page, total}) => {
     return <nav className="h-10 sticky shadow-lg bg-white items-end bottom-0 left-1/2 z-50 w-full flex justify-center">
     <ul className="flex items-center justify-end space-x-2 xs:space-x-1 xxs:space-x-0">
     <div className="flex items-center">
-    <a href="#header_container" disabled={numPage === 1} onClick={() => navigateTo(pageArray[0])} className="p-1">
+    <button disabled={numPage === 1} onClick={() => navigateTo(pageArray[0])} className="p-1">
     <img decoding="lazy" width={15} height={15} alt={`${pageArray[0]}-ზე`} src={ChevronDoubleLeft} ></img>
-  </a>
-    <a href="#header_container" disabled={numPage === 1} onClick={() => navigateTo(numPage - 1)} className="p-1">
+  </button>
+    <button disabled={numPage === 1} onClick={() => navigateTo(numPage - 1)} className="p-1">
     <img decoding="lazy" width={15} height={15} alt={`${numPage - 1}-ზე`} src={ChevronLeft} ></img>
-  </a>
+  </button>
   </div>
       {pageArray.map((a, i) => {
         return <li key={i} className="flex justify-evenly p-1 items-start">
-            <a href="#header_container" onClick={() => navigateTo(a)} className={a === numPage ? "px-[4px] bg-[rgb(251,77,1)] text-white font-normal xxs:text-2xl lg:text-base" : "lg:text-base px-[4px] xxs:text-2xl text-gray-400 font-normal"}>
+            <button onClick={() => navigateTo(a)} className={a === numPage ? "px-[4px] bg-[rgb(251,77,1)] text-white font-normal xxs:text-2xl lg:text-base" : "lg:text-base px-[4px] xxs:text-2xl text-gray-400 font-normal"}>
               {a}
-            </a>
+            </button>
         </li> 
       })}
       <div className="flex gap-5 items-center">
       <div className="flex items-center">
-      <a href="#header_container" disabled={numPage === allPages ? true : false} onClick={() => navigateTo(numPage + 1)} className="p-1">
+      <button disabled={numPage === allPages ? true : false} onClick={() => navigateTo(numPage + 1)} className="p-1">
       <img decoding="lazy" alt={`${numPage + 1}-ზე`} width={15} height={15} src={ChevronRight} ></img>
-    </a>
-    <a href="#header_container" onClick={() => navigateTo(endSlice)} disabled={numPage === allPages ? true : false} className="p-1">
+    </button>
+    <button onClick={() => navigateTo(endSlice)} disabled={numPage === allPages ? true : false} className="p-1">
     <img decoding="lazy" alt={`${endSlice}-ზე`} width={15} height={15} src={ChevronDoubleRight} ></img>
-</a>
+</button>
       </div>
   <form className="xxs:hidden md:flex" id="pagenum" onSubmit={navigateForm}>
       <label htmlFor="pagenum" className="text-xs font-noraml">გაჩვენებთ 

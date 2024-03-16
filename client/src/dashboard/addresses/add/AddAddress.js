@@ -1,7 +1,7 @@
 import { Fragment, useState } from "react"
 import cities from "../../cities.json"
 import { useNavigate } from "react-router-dom"
-import { Helmet, HelmetProvider } from "react-helmet-async"
+import { Helmet } from "react-helmet-async"
 
 const AddAddress = () => {
     const [state, setState] = useState("")
@@ -41,7 +41,7 @@ const AddAddress = () => {
     }
 
 
-    return <HelmetProvider>
+    return <>
     <Helmet>
       <title>Slash - მისამათის დამატება</title>
     </Helmet>
@@ -146,7 +146,7 @@ const AddAddress = () => {
     </div>
   </div>
     </div>
-    </HelmetProvider>
+    </>
 }
 
 export default AddAddress

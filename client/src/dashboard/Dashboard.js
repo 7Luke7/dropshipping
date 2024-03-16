@@ -1,7 +1,7 @@
 import { Fragment, useEffect, useState } from "react"
 import pen from "../public/pen.svg"
 import Plus from "../public/plus-circle.svg"
-import {Helmet, HelmetProvider} from "react-helmet-async"
+import {Helmet} from "react-helmet-async"
 
 const Dashboard = () => {
     const [user, setUser] = useState()
@@ -104,7 +104,7 @@ const Dashboard = () => {
       }
     }
 
-    return <HelmetProvider>
+    return <Fragment>
       <Helmet>
         <title>Slash - ჩემი ანგარიში</title>
       </Helmet>
@@ -182,7 +182,7 @@ const Dashboard = () => {
       </div>
     </div>
   </div>
-    </HelmetProvider> 
+    </Fragment>
 }
 
 export default Dashboard

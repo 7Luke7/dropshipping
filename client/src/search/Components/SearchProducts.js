@@ -2,7 +2,7 @@ import { Fragment, useEffect, useMemo, useState } from "react"
 import {SearchProduct} from "./SearchProduct"
 import {Pagination} from "../../Components/Pagination"
 import { translate } from "../../Components/Translate"
-import {Helmet, HelmetProvider} from "react-helmet-async"
+import {Helmet} from "react-helmet-async"
 import categoryNames from "../../Components/searchNav.json"
 
 export const SearchProducts = ({category_id, page, isVideo, isAsc, fieldType, countryCode, keyword, minInput, maxInput}) => {
@@ -129,7 +129,6 @@ export const SearchProducts = ({category_id, page, isVideo, isAsc, fieldType, co
             </Fragment>
       } else if (productListLength > 0) {
         return <Fragment> 
-        <HelmetProvider> 
           <Helmet>
         <meta
           name="description"
@@ -156,7 +155,6 @@ export const SearchProducts = ({category_id, page, isVideo, isAsc, fieldType, co
         <meta property="og:url" content={window && window.location.href} />
         <title>{keyword ? `${keyword} გასაყიდად` : keywords} - Slash</title>
     </Helmet>  
-    </HelmetProvider>
           <div className="flex gap-y-2 gap-x-1 flex-wrap xxs:justify-center lg:justify-between">
            {products.content[0].productList.map((p, i) => {
           return <Fragment key={i}>

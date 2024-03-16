@@ -23,7 +23,7 @@ const cartSchema = new mongoose.Schema({
     NAMEEN: String,
     SELLPRICE: String,
     SKU: String, 
-    QUANTITY: Number,
+    quantity: Number,
     WEIGHT: Number,
     ID: String,
     PACKWEIGHT: String

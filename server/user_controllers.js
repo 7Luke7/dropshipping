@@ -52,7 +52,7 @@ const addToCart = async (req, res, next) => {
                     NAMEEN: req.body.NAMEEN,
                     SELLPRICE: req.body.SELLPRICE,
                     SKU: req.body.SKU, 
-                    QUANTITY: req.body.QUANTITY,
+                    quantity: req.body.quantity,
                     WEIGHT: req.body.WEIGHT,
                     ID: req.body.ID,
                     PACKWEIGHT: req.body.PACKWEIGHT

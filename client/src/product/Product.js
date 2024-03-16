@@ -8,7 +8,7 @@ import {ChildCategories} from "./Components/ChildCategories"
 import {ProductVariants} from "./Components/ProductVariants"
 import {translate} from "../Components/Translate"
 import {ProductLoading} from "./Components/ProductLoading" 
-import {Helmet, HelmetProvider} from "react-helmet-async"
+import {Helmet} from "react-helmet-async"
 import { MediaCarousel } from "./Components/MediaCarousel"
 import {AdditionalInformation} from "./Components/AdditionalInformation"
 
@@ -45,19 +45,22 @@ const Product = () => {
             if (!data) return setIsEmpty(true) 
 
             const split_keys = data.VARIANTKEYEN.split("-")
+            const original = [...split_keys, data.MATERIALEN, data.CATEGORY, data.NAMEEN, data.DESCRIPTION]
+            const not_null_properties = original.filter((a) => a !== null )
 
-            const product_translated = await translate([...split_keys, data.MATERIALEN, data.CATEGORY, data.NAMEEN, data.DESCRIPTION])
+            const product_translated = await translate(not_null_properties)
             const mod_keys = [] 
             const v_keys_length = split_keys.length
             for(let i = 0; i < v_keys_length; i++) {
                 mod_keys.push(product_translated[0][i])
             }
 
+            const diff = original.length - product_translated[0].length
             data["VARIANTKEYEN"] = mod_keys
-            data["MATERIALEN"] = product_translated[0][v_keys_length]
-            data["CATEGORY"] = product_translated[0][v_keys_length + 1]
-            data["NAMEEN"] = product_translated[0][v_keys_length + 2]
-            data["DESCRIPTION"] = product_translated[0][v_keys_length + 3]
+            data["MATERIALEN"] = product_translated[0][v_keys_length - diff]
+            data["CATEGORY"] = product_translated[0][(v_keys_length + 1) - diff]
+            data["NAMEEN"] = product_translated[0][(v_keys_length + 2) - diff]
+            data["DESCRIPTION"] = product_translated[0][(v_keys_length + 3) - diff]
 
             setProduct(data)
             } catch (error) {
@@ -76,76 +79,73 @@ const Product = () => {
             const img_index = product.newImgList.findIndex((a) => a === cueSele.img)
             setCurr({imageURL: cueSele.img, index: img_index})
         }
-
+    
         const all_variants_possible = product.stanProducts
-        
-        // უვლის ყველა ვარიანტს და ამოწმებს თუ ახლანდელი key აქვს ვარიანტს თუ აქვს ჭრის -ზე და აკეთებს ერეის
-        // splits = [დაჭრილი ვარიანტები, ...]
-        // possibilities = splits = დაჭრილი ვარიანტები რომლებიც ახლანდელ key-ს შეიძლება ქონდეს 
-        
+    
         setVarientList((prev) => {
             const lists = [...prev]
-            let key_builder = []
-            let chosenVariant = {} 
+            const key_builder = []
+            const parent_indexes = []
 
             if (lists[index].keyObj[curVarIndex].chosen) {
                 lists[index].keyObj[curVarIndex].chosen = false
             } else {
                 lists[index].keyObj[curVarIndex].chosen = true  
             }
-
+    
             for (let i = 0; i < lists.length; i++) {
                 for (let j = 0; j < lists[i].keyObj.length; j++) {
                     if (lists[i].keyObj[j].chosen) {
                         if (lists[i].name === lists[index].name && j !== curVarIndex) {
+                            lists[i].keyObj[j].chosen = false
                         } else {
                             key_builder.push(lists[i].keyObj[j].eng_name)
                         }
+                        parent_indexes.push(lists[i].name)
                     } 
                 }
             }
-
-            const filtered_variants = []
-
-            for (let i = 0; i < all_variants_possible.length; i++) {
-                const all_keys_into_array = all_variants_possible[i].VARIANTKEY.split("-")
-
-                for (let j = 0; j < all_keys_into_array.length; j++) {
-                    for (let k = 0; k < key_builder.length; k++) {
-                        if (all_keys_into_array[j] === key_builder[k]) {
-                            filtered_variants.push(all_variants_possible[i])
-                        } 
-                    } 
-                }    
-
-                if (key_builder.length === all_keys_into_array.length && all_variants_possible[i].VARIANTKEY === key_builder.join("-")) {
-                    chosenVariant = all_variants_possible[i]
-                }       
-            } 
+    
+            const filtered_variants = all_variants_possible.filter(variant => {
+                const all_keys_into_array = variant.VARIANTKEY.split("-")
+                return key_builder.every(key => all_keys_into_array.includes(key))
+            })
+    
+            
             const pass_on = []
-            setVariantObj(chosenVariant)
-
+    
             for (let i = 0; i < lists.length; i++) {
                 for (let j = 0; j < lists[i].keyObj.length; j++) {
                     for (let k = 0; k < filtered_variants.length; k++) {
-                        
-                    }
-
-                    if (lists[index].name === lists[i].name && j !== curVarIndex) { 
-                        lists[index].keyObj[j].chosen = false
+                        const splited_filter_keys = filtered_variants[k].VARIANTKEY.split("-")
+                        if (splited_filter_keys.includes(lists[i].keyObj[j].eng_name)) {
+                            lists[i].keyObj[j].disable = false
+                            pass_on.push(lists[i].keyObj[j].eng_name)
+                        } else if (!pass_on.includes(lists[i].keyObj[j].eng_name) && lists[i].name !== lists[index].name) {
+                            lists[i].keyObj[j].disable = true
+                        }
                     }
                 }
             }
-            
-            console.log(lists)
+    
+            const chosenVariantIndex = all_variants_possible.findIndex(variant => variant.VARIANTKEY === key_builder.join("-"))
+            if (chosenVariantIndex !== -1) {
+                setVariantObj(all_variants_possible[chosenVariantIndex])
+            }
+    
             return lists
         })
-      }
+    }
 
     const addToCart = async  () => {
         if (Object.keys(variantObj).length === 0) {
             return
-        } 
+        }
+        const translated_data = await translate([variantObj.NAMEEN || product.NAMEEN, variantObj.STANDARD])
+
+        variantObj.NAMEEN = translated_data[0][0]
+        variantObj.STANDARD = translated_data[0][1]
+
         try {
             const request = await fetch(`${process.env.REACT_APP_SERVER_URL}/api/tocart`, {
                 method: "POST",
@@ -153,13 +153,13 @@ const Product = () => {
                     "Content-Type": "application/json"  
                 },
                 credentials: "include",
-                body: JSON.stringify({...variantObj, QUANTITY: quantity})
+                body: JSON.stringify({...variantObj, quantity: quantity})
             })
 
             if (!request.ok) {
                 throw Error(request.status)
             } else {
-                localStorage.setItem('c', true)
+                document.getElementById("notification").style.display = "block"
             }
         } catch (error) {
             if (error.message == 401) {
@@ -168,8 +168,8 @@ const Product = () => {
                 if (exists) {
                     return 
                 } else {
-                    localStorage.setItem('c', true)
-                    cart.push({...variantObj, QUANTITY: quantity})
+                    document.getElementById("notification").style.display = "block"
+                    cart.push({...variantObj, quantity: quantity})
                     localStorage.setItem('cart', JSON.stringify(cart));
                 }
             } else {
@@ -178,13 +178,22 @@ const Product = () => {
         }
     }
 
-    const navigatePurchase = () => {
-        navigate(`/purchase/${variantObj.ID}`)
+    const navigatePurchase = async () => {
+        if (!Object.keys(variantObj).length) return
+        const translated_data = await translate([variantObj.NAMEEN || product.NAMEEN, variantObj.STANDARD, variantObj.VARIANTKEY])
+
+        variantObj.NAMEEN = translated_data[0][0]
+        variantObj.STANDARD = translated_data[0][1] 
+        variantObj.VARIANTKEY = translated_data[0][2] 
+
+        const variant_with_quantity = {...variantObj, quantity}
+        sessionStorage.setItem("purchases", JSON.stringify(variant_with_quantity))
+        navigate("/purchase")
     }
 
 
     // PACKAGE_SIZE <------------------------------------------ Make this dynamic 
-    const standard = product && product.stanProducts && product.stanProducts[0].STANDARD
+    const standard = Object.keys(variantObj).length === 0 ? product && product.stanProducts && product.stanProducts[0].STANDARD : variantObj.STANDARD
     const package_sizes = standard && standard.match(/\d+/g);
 
     const renderProductDetails = useMemo(() => {
@@ -230,8 +239,8 @@ const Product = () => {
             }, options);
             observerTest.observe(show_additional);
 
-          return <HelmetProvider>
-                <Helmet>
+          return <Fragment>
+            <Helmet>
         <meta
           name="description"
           content={`${product.NAMEEN} - Slash.ge`}
@@ -355,7 +364,7 @@ const Product = () => {
                 </Suspense>
                 </div>
             </main>
-            </HelmetProvider>
+          </Fragment>
         }
     
         return null;

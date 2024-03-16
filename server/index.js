@@ -32,7 +32,7 @@ const origin = process.env.URL
 
 app.use(cors({
     origin: origin,
-    credentials: true
+    credentials: true,
 }))
 
 app.use(sess)

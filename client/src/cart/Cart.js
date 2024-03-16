@@ -2,19 +2,18 @@ import { Fragment, useEffect, useState } from "react"
 import { Header } from "../Components/Header"
 import { Footer } from "../Components/Footer"
 import sadIcon from "../public/sad-icon.svg"
-import {Helmet, HelmetProvider} from "react-helmet-async"
+import {Helmet} from "react-helmet-async"
 import { InternalError } from "../Components/InternalError"
 import { CartItem } from "./CartItem"
 
 const Cart = () => {
     const [cartArray, setCartArray] = useState([])
-    const [quantity, setQuantity] = useState(1)
     const [isEmpty, setIsEmpty] = useState(false)
     const [isError, setIsError] = useState(false)
 
     useEffect(() => {
         const cartArrayRequest = async () => {
-            localStorage.removeItem("c")
+            document.getElementById("notification").style.display = "none"
             try {
                 const check_user = await fetch(`${process.env.REACT_APP_SERVER_URL}/api/getcart`, {
                     credentials: "include",
@@ -25,14 +24,13 @@ const Cart = () => {
                 } else {
                     const data = await check_user.json()
                     if (data.length === 0) return setIsEmpty(true)
-                    setCartArray(data || [])
+                    setCartArray(data)
                 }
             } catch (error) {
-                if (error.message === 401) {
+                if (error.message === "401") {
                     const items = JSON.parse(localStorage.getItem("cart"))
-                    console.log(items)
                     if (!items || !items.length) return setIsEmpty(true)
-                    setCartArray(items || [])
+                    setCartArray(items)
                 } else {
                     setIsError(true)
                 }
@@ -60,15 +58,15 @@ const Cart = () => {
                 }
             }   
         } catch (error) {
-            if (error.message === 401) {
+            if (error.message === "401") {
                 const cartItems = JSON.parse(localStorage.getItem("cart"));
                 const deletedItemArray = cartItems.filter((items, index) => index !== i);
+                localStorage.setItem("cart", JSON.stringify(deletedItemArray))
+                localStorage.setItem("cart", JSON.stringify(deletedItemArray))
+                setCartArray(deletedItemArray)
+
                 if (deletedItemArray.length === 0) {
-                    localStorage.setItem("cart", JSON.stringify(deletedItemArray))
-                    setCartArray([])
                     return setIsEmpty(true)
-                } else {
-                    setCartArray(deletedItemArray)
                 }
             } else {
                 setIsError(true)
@@ -90,7 +88,7 @@ const Cart = () => {
                 setIsEmpty(true)
             }   
         } catch (error) {
-            if (error.message === 401) {
+            if (error.message === "401") {
                 localStorage.clear()
                 setCartArray([])
                 setIsEmpty(true)
@@ -100,7 +98,7 @@ const Cart = () => {
         }
     }
 
-        return <HelmetProvider>
+        return <>
             <Helmet>
                 <title>Slash - კალათა</title>
             </Helmet>
@@ -120,7 +118,7 @@ const Cart = () => {
         {cartArray.map((v, i) => {
             return (
               <Fragment key={i}>
-                <CartItem v={v} i={i} quantity={quantity} cartItemDelete={cartItemDelete} setQuantity={setQuantity}></CartItem>
+                <CartItem v={v} i={i} cartItemDelete={cartItemDelete}></CartItem>
               </Fragment>
             );
           })}
@@ -133,6 +131,6 @@ const Cart = () => {
     </section>}
         <Footer></Footer>
     </div>
-        </HelmetProvider> 
+        </> 
     }
 export default Cart

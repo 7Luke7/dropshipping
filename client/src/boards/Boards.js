@@ -5,7 +5,7 @@ import arrowRight from "../public/arrow-right.svg"
 import { useParams } from "react-router-dom"
 import {BoardProducts} from "./Components/BoardProducts"
 import { translate } from "../Components/Translate"
-import {Helmet, HelmetProvider} from "react-helmet-async"
+import {Helmet} from "react-helmet-async"
 
 const Page = () => {
     const [board, setBoard] = useState({})
@@ -116,7 +116,7 @@ const Page = () => {
         }
       }
 
-    return <HelmetProvider>
+    return <>
         <div id="head">
         <Header></Header>
         {Object.keys(board).length > 0 && <Fragment>
@@ -194,7 +194,7 @@ const Page = () => {
             </Fragment>
         }
     </div>    
-    </HelmetProvider> 
+    </> 
 }
 
 export default Page

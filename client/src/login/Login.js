@@ -1,7 +1,7 @@
 import { Footer } from "../Components/Footer";
 import { useNavigate } from "react-router-dom";
 import { Fragment, useState } from "react";
-import {Helmet, HelmetProvider} from "react-helmet-async"
+import {Helmet} from "react-helmet-async"
 import Logo from "../public/slashy_logo.webp"
 
 const Login = () => {
@@ -33,10 +33,10 @@ const Login = () => {
           throw new Error(message.message)
       }
           
-      const purchaseVariantId = sessionStorage.getItem("purchaseVariantId")
-      if (purchaseVariantId) {
+      const purchases = sessionStorage.getItem("purchases")
+      if (purchases) {
         setMessage(message.message)
-        navigate(`/purchase/${purchaseVariantId}`)
+        navigate("/purchase")
       } else {
         setMessage(message.message)
         navigate("/")
@@ -47,7 +47,6 @@ const Login = () => {
   }
 
   return (
-    <HelmetProvider>
     <Fragment>
       <Helmet>
         <title>
@@ -137,7 +136,6 @@ const Login = () => {
       </section>
       <Footer></Footer>
     </Fragment>
-    </HelmetProvider>
   );
 };
 

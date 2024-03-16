@@ -28,7 +28,7 @@ export const LandingCarousel = memo(({carousel}) => {
           <img src={LeftArrow} width={10} height={10} alt="წინა" className="w-[36px] h-[36px]"></img>
         </button>
         <button className="absolute z-40 p-1 bg-[rgb(255,255,255,.9)] -translate-y-2/4 shadow-xl rounded-[50%] top-1/2 right-[2%]" onClick={() => {
-          if (carousel.length === 0) {
+          if (carousel.length === 0) {  
             return
           }
           slider.current.slickNext()

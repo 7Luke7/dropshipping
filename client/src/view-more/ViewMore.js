@@ -3,7 +3,7 @@ import { Header } from "../Components/Header"
 import { Footer } from "../Components/Footer"
 import { MoreProducts } from "./Components/MoreProducts"
 import { translate } from "../Components/Translate"
-import { Helmet, HelmetProvider } from "react-helmet-async"
+import { Helmet } from "react-helmet-async"
 import { useParams } from "react-router-dom"
 
 const Page = () => {
@@ -68,7 +68,7 @@ const Page = () => {
 
     const title = id === 1 ? "ახალი პროდუქცია" : id === 2 ? "ტრენდული პროდუქცია" : "ვიდეო პროდუქცია"
 
-    return <HelmetProvider>
+    return <Fragment>
       <Helmet>
         <meta
           name="description"
@@ -137,7 +137,7 @@ const Page = () => {
     </div>
 
     </div>
-    </HelmetProvider>
+    </Fragment>
 }
 
 export default Page

@@ -3,7 +3,7 @@ import { Navigation } from "../Navigation"
 import {TrendingProducts} from "../TrendingProducts"
 import {Footer} from "../Footer"
 import { Fragment, Suspense, lazy } from "react"
-import { Helmet, HelmetProvider } from "react-helmet-async"
+import { Helmet } from "react-helmet-async"
 
 const VideoProducts = lazy(() => import("../VideoProducts"))
 const HotCategories = lazy(() => import("../HotCategories"))
@@ -12,7 +12,6 @@ const BestDeals = lazy(() => import("../BestDeals"))
 
 export const Landing = () => {
   return <Fragment>
-    <HelmetProvider>
     <Helmet>
         <meta
           name="description"
@@ -49,7 +48,6 @@ export const Landing = () => {
           href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css"
         />
     </Helmet>
-    </HelmetProvider>
       <Header></Header>
       <section id="closeScroll" className="sm:w-[83%] lg:w-[77%] xxs:w-full m-auto">
         <Navigation></Navigation>

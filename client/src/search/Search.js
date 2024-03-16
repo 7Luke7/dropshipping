@@ -83,7 +83,7 @@ const Search = () => {
     }
 
     return <section className="relative min-h-screen">
-        <div id="mobile_filter_component" className='fixed hidden z-[100] left-0 h-screen overflow-y-scroll bg-white right-0 top-0 bottom-0 -transform-translate-x-[100%] duration-200'>
+        <div id="mobile_filter_component" className='fixed hidden z-[1000] left-0 h-screen bg-white right-0 top-0 bottom-0 -transform-translate-x-[100%] duration-200'>
             <button className='absolute right-5 top-3' onClick={() => 
             {
               document.getElementById("mobile_filter_component").style.display = "none"
