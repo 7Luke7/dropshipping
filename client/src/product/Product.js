@@ -121,7 +121,8 @@ const Product = () => {
                         if (splited_filter_keys.includes(lists[i].keyObj[j].eng_name)) {
                             lists[i].keyObj[j].disable = false
                             pass_on.push(lists[i].keyObj[j].eng_name)
-                        } else if (!pass_on.includes(lists[i].keyObj[j].eng_name) && lists[i].name !== lists[index].name) {
+                            pass_on.push(lists[index].name)
+                        } else if (!pass_on.includes(lists[i].keyObj[j].eng_name) && !pass_on.includes(lists[i].name)) {
                             lists[i].keyObj[j].disable = true
                         }
                     }
@@ -335,11 +336,14 @@ const Product = () => {
                     
                     <div className="w-full flex xxs:flex-col xxs:items-start sm:flex-row gap-3 sm:items-center lg:items-start mt-2 justify-between h-full lg:h-1/2">
                     <div className="flex lg:w-3/4 xl:w-1/3 flex-col xl:justify-between h-full w-full gap-5">
-                        <button onClick={addToCart} className="border xxs:w-full text-white bg-[rgb(251,77,1)] xxs:w-full rounded gap-2 justify-center flex items-center text-[13px] px-4 xxs:h-[45px] lg:h-[40px]">
-                            <img alt="კალათაში დამატება" decoding="lazy" width={16} height={16} src={cart}></img>
-                            დამატება
+                        <button onClick={addToCart} className="flex items-center justify-center px-4 py-2 bg-[rgb(251,77,1)] text-white rounded gap-2 text-xs lg:text-sm">
+                            <img alt="Add to Cart" src={cart} className="w-4 h-4" />
+                            <span>დამატება</span>
                         </button>
-                        {<button onClick={navigatePurchase} className="bg-green-500 xxs:w-full hover:bg-green-600 xxs:w-full justify-center rounded gap-3 font-normal text-white flex items-center text-[13px] xxs:h-[45px] lg:h-[40px] px-4 space-3">ყიდვა</button>}
+
+                        <button onClick={navigatePurchase} className="flex items-center justify-center px-4 py-2 bg-green-500 rounded hover:bg-green-600 text-white text-xs lg:text-sm">
+                            <span>ყიდვა</span>
+                        </button>
                     </div>
                     <div className="xxs:w-full lg:w-full xl:w-2/4 h-full px-3 gap-5 py-2 flex lg:h-[100px] flex-col border justify-between rounded border-gray-100">
                             <p>მნიშვნელოვანი ინფორმაცია</p>

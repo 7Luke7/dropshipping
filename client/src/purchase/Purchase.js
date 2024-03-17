@@ -50,7 +50,7 @@ const Purchase = () => {
               setStreet(data.addresses[0].street)
               setPhoneNumber(data.phone)
           } catch (error) {
-              if (error.message === 401) {
+              if (error.message === "401") {
                 return setMessage("მომხმარებელს არ აქვს წვდომის უფლება")
               } else {
                 return setMessage("დაფიქსირდა მოულოდნელი შეცდომა, სცადეთ თავიდან.")

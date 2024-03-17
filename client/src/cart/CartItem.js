@@ -29,7 +29,7 @@ export const CartItem = ({v, i, cartItemDelete}) => {
               className="xxs:text-[11px] min-h-[58px] xs:text-[14px] md:text-[12px] md:w-full text-gray-800 font-bold"
               itemProp="name"
               >
-                  {v.NAMEEN.slice(0, 100) + "..." || "სათაური არ აქვს."}
+                  {v.NAMEEN && v.NAMEEN.slice(0, 100) + "..." || "სათაური არ აქვს."}
               </h1>
         </a>
 
