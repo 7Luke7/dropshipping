@@ -44,10 +44,14 @@ const Purchase = () => {
               }
               
               setMessage("გაქვს უფლება")
-              setUser(data)
-              setCity(data.addresses[0].city)
-              setState(data.addresses[0].state)
-              setStreet(data.addresses[0].street)
+                setUser(data)
+                if (!data.addresses.length) {
+                  return 
+                } else {
+                  setCity(data.addresses[0].city)
+                  setState(data.addresses[0].state)
+                  setStreet(data.addresses[0].street)
+                }
               setPhoneNumber(data.phone)
           } catch (error) {
               if (error.message === "401") {
