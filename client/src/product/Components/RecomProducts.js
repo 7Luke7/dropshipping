@@ -3,12 +3,12 @@ import { useState, Fragment} from "react"
 export const RecomProducts = ({product, i}) => {
     const [isLoading, setIsLoading] = useState(true)
 
-    return <div key={i} className="xxs:w-[200px] lg:w-[200px] mobl:w-[170px] xs:w-[230px] xl:w-[200px] lg:hover:scale-[1.01]">
+    return <div key={i} className="xxs:w-[220px] lg:w-[200px] xs:w-[180px] mobl:w-[160px] xl:w-[200px] lg:hover:scale-[1.01]">
     <a href={`/product/${product.productId}`}>
       <div className="relative">
       <img
       loading="lazy"
-      className="object-cover border w-[200px] h-[200px]"
+      className="object-cover rounded-t border w-[200px] h-[200px]"
       src={isLoading ? `${product.bigImg}?x-oss-process=image/format,webp,image/resize,m_fill,w_30,h_30` : `${product.bigImg}?x-oss-process=image/format,webp,image/resize,m_fill,w_179,h_190`}
       onLoad={() => {
         setIsLoading(false)

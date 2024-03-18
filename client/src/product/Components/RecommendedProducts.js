@@ -17,7 +17,7 @@ const RecommendedProducts = memo(({id}) => {
                   body: JSON.stringify(
                       {
                         page: 1, 
-                        size: "10",
+                        size: "12",
                         versionNum: null,
                         productId: id
                       },
@@ -57,7 +57,7 @@ const RecommendedProducts = memo(({id}) => {
             <div className="w-[200px] h-[25px] rounded bg-gray-200 animate-pulse"></div>          
         </div>
             <div className="lg:grid-cols-4 xl:grid-cols-5 w-full gap-2 place-items-center xxs:grid mt-5 md:grid-cols-3 mobl:grid-cols-2">
-                {Array.from({length: 10 }).map((_, index) => {
+                {Array.from({length: 12 }).map((_, index) => {
                     return <div key={index} className="animate-pulse xxs:w-[200px] lg:w-[200px] mobl:w-[170px] xs:w-[230px] xl:w-[200px]">
                     <Fragment>
                     <div
@@ -80,7 +80,7 @@ const RecommendedProducts = memo(({id}) => {
       } else {
         return <section className="mt-10">
     <p className="text-lg xxs:text-center lg:text-start">რეკომენდირებული პროდუქტები</p>
-    <div className="lg:grid-cols-4 xl:grid-cols-5 w-full gap-2 place-items-center xxs:grid mt-5 md:grid-cols-3 mobl:grid-cols-2">
+    <div className="lg:justify-between xxs:justify-evenly gap-y-4 flex-grow flex flex-wrap mt-5">
       {recommendedProducts && recommendedProducts.map((product, i) => {
           return <Fragment key={i}><RecomProducts product={product} i={i}></RecomProducts></Fragment>
         })}

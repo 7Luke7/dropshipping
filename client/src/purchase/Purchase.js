@@ -237,7 +237,7 @@ const Purchase = () => {
           <div className="mt-8">
             <p htmlFor="ტელეფონის ნომერი" className="mt-4 mb-2 block text-sm font-medium">ტელ. ნომერი</p>
             <div className="relative">
-              <input value={phoneNumber} onChange={(e) => setPhoneNumber(e.target.value)} type="number" name="ტელეფონის ნომერი" className="w-full rounded-md border border-gray-200 px-4 py-3 pl-11 text-sm shadow-sm outline-none focus:z-10 focus:border-[rgb(243,104,29)] focus:ring-[rgb(243,104,29)]" />
+              <input value={phoneNumber} onChange={(e) => setPhoneNumber(e.target.value)} type="number" name="ტელეფონის ნომერი" placeholder="მობილურის ნომერი" className="w-full rounded-md border border-gray-200 px-4 py-3 pl-11 text-sm shadow-sm outline-none focus:z-10 focus:border-[rgb(243,104,29)] focus:ring-[rgb(243,104,29)]" />
               <div className="pointer-events-none absolute inset-y-0 left-0 inline-flex items-center px-3">
                 <img loading="lazy" src={mobile} alt="ტელეფონი გადახდა"></img>
               </div>
@@ -331,8 +331,8 @@ const Purchase = () => {
         </Fragment> : <Fragment>
           <Header></Header>
           <div className="flex flex-col items-center justify-center h-[80vh]">
-            <div className="flex items-center space-x-1">
-              <p>{message}</p>
+            <div className="flex items-center xxs:flex-col mobl:flex-row items-center justfy-center space-x-1">
+              <p className="text-center">{message}</p>
               <img src={sadIcon} alt="ემოჯი"></img>
             </div>
             <div className="flex items-center gap-3 mt-3">

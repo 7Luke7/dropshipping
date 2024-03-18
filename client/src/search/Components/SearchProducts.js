@@ -146,10 +146,6 @@ export const SearchProducts = ({category_id, page, isVideo, isAsc, fieldType, co
           property="og:description"
           content={keyword ? `ძიება ${keyword} - საუკეთესო ფასებში - Slash.ge` : `${keywords} - საუკეთესო ფასებში - Slash.ge`}
         />
-        {/*<meta
-          property="og:image"
-          content={}
-  /> უნდა იყოს ლოგო წესით */}
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="900" />
         <meta property="og:url" content={window && window.location.href} />

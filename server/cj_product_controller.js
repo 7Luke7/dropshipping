@@ -20,6 +20,7 @@ const get_inventory = async (req, res, next) => {
             throw new extendedError("არ ვაგზავნით მოცემულ ქვეყანაში", 400)
         }
 
+        console.log(country)
         const checkUS = country.filter((c) => c.countryCode === "US")
         const checkGB = country.filter((c) => c.countryCode === "GB")
         const checkCN = country.filter((c) => c.countryCode === "CN")   
@@ -44,22 +45,22 @@ const get_inventory = async (req, res, next) => {
         let hundredGramPrice
         let droOnex
 
-        if (checkUS.length !== 0 ) {
+        if (checkCN.length !== 0 ) {
+            ship = "CN"
+            if (isAragabarituli) {
+                hundredGramPrice = 0.679 * volumeWeight
+            } else {
+                hundredGramPrice = 1.208 * (weight / 100)  
+            }
+            droOnex = "5-10" 
+        } else if(checkUS.length !== 0) {
             ship = "US"
             if (isAragabarituli) {
                 hundredGramPrice = 0.491 * volumeWeight
             } else {
                 hundredGramPrice = 0.86 * (weight / 100)
             }
-            droOnex = "4-8"  
-        } else if(checkGB.length !== 0) {
-            ship = "GB"
-            if (isAragabarituli) {
-                hundredGramPrice = 0.491 * volumeWeight
-            } else {
-                hundredGramPrice = 0.86 * (weight / 100)  
-            }
-            droOnex = "4-8"
+            droOnex = "4-8" 
         } else if(checkDE.length !== 0) {
             ship = "DE"
             if (isAragabarituli) {
@@ -68,14 +69,14 @@ const get_inventory = async (req, res, next) => {
                 hundredGramPrice = 0.86 * (weight / 100)  
             }
             droOnex = "5-10"
-        } else if (checkCN.length !== 0) {
-            ship = "CN"
+        } else if (checkGB.length !== 0) {
+            ship = "GB"
             if (isAragabarituli) {
-                hundredGramPrice = 0.679 * volumeWeight
+                hundredGramPrice = 0.491 * volumeWeight
             } else {
-                hundredGramPrice = 1.208 * (weight / 100)  
+                hundredGramPrice = 0.86 * (weight / 100)  
             }
-            droOnex = "5-10"  
+            droOnex = "4-8"
         } else {
             ship = "FR"
             hundredGramPrice = 3.77 * (weight / 100)  
