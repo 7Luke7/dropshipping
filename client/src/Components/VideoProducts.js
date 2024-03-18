@@ -1,6 +1,7 @@
 import { ProductListings } from "./ProductListings";
 import { useEffect, useState } from "react";
 import { translate } from "./Translate";
+import video from "../public/video-camera-alt.svg"
 
 const VideoProducts = () => {
   const [videoProducts, setVideoProducts] = useState([])
@@ -14,8 +15,8 @@ const VideoProducts = () => {
           },
           credentials: "omit",
           body: JSON.stringify({
-              "pageSize": 5,
-              "timeFlag": "video"
+            pageSize: "10",
+            timeFlag: "video"
           }),
       })
               
@@ -46,9 +47,12 @@ const VideoProducts = () => {
   return <div id="video_products" className="relative mt-14 w-[100%] m-auto">
   <div className="bg-[rgb(230,230,230,.2)] p-4 rounded-2xl">
   <div className="md:mx-5 lg:mx-2 xl:mx-5 flex justify-between items-center">
-  <h1 className="xxs:text-md md:text-lg text-gray-900 font-bold">
-   ვიდეო პროდუქცია
-</h1>
+  <div className="flex gap-2 items-center">
+      <h1 className="xxs:text-md md:text-lg text-gray-900 font-bold">
+        ვიდეო პროდუქცია
+      </h1>
+      <img loading="lazy" src={video} alt="ვიდ"></img>
+    </div>
 <a href="/view-more/4" className="text-blue-500 underline text-xs">ნახე მეტი</a>
   </div>
     <ProductListings products={videoProducts}></ProductListings>

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { ProductListings } from "./ProductListings";
 import { translate } from "./Translate";
+import NewIcon from "../public/new-item-shopping-label-svgrepo-com.svg"
 
 const NewProducts = () => {
   const [newProducts, setNewProducts] = useState([])
@@ -13,8 +14,8 @@ const NewProducts = () => {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({
-                "pageSize": 5,
-                timeFlag: "month"
+              pageSize: "10",
+              timeFlag: "month"
             }),
             credentials: "omit",
     
@@ -47,9 +48,12 @@ const NewProducts = () => {
   return <div id="new_products" className="relative mt-14 w-[100%] m-auto">
     <div className="bg-[rgb(230,230,230,.2)] p-4 rounded-2xl">
       <div className="md:mx-5 lg:mx-2 xl:mx-5 flex justify-between items-center">
-      <h1 className="xxs:text-md md:text-lg text-gray-900 font-bold">
-        ახალი პროდუქცია
-      </h1>
+        <div className="flex gap-2 items-center">
+          <h1 className="xxs:text-md md:text-lg text-gray-900 font-bold">
+            ახალი პროდუქცია
+          </h1>
+          <img loading="lazy" src={NewIcon} alt="ახალი"></img>
+      </div>
       <a href="/view-more/1" className="text-blue-500 underline text-xs">ნახე მეტი</a>
     </div>
       <ProductListings products={newProducts}></ProductListings>

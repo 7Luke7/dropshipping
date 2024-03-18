@@ -2,6 +2,7 @@
 import { memo, useEffect, useState } from "react";
 import { ProductListings } from "./ProductListings";
 import { translate } from "./Translate";
+import Fire from "../public/fire-flame-curved.svg"
 
 export const TrendingProducts = memo(() => {
   const [trendingProducts, setTrendingProducts] = useState([]) 
@@ -49,9 +50,12 @@ export const TrendingProducts = memo(() => {
   return <div className="relative mt-14 w-full m-auto">
     <div className="bg-[rgb(230,230,230,.2)] p-4 rounded-2xl">
     <div className="md:mx-5 lg:mx-2 xl:mx-5 flex justify-between items-center">
-    <h1 className="xxs:text-md md:text-lg text-gray-900 font-bold">
-    ტრენდული პროდუქცია
-  </h1>
+    <div className="flex gap-2 items-center">
+      <h1 className="xxs:text-md md:text-lg text-gray-900 font-bold">
+        ტრენდული პროდუქცია
+      </h1>
+      <img loading="lazy" src={Fire} alt="ტრენდ"></img>
+    </div>
   <a href="/view-more/2" className="text-blue-500 underline text-xs">ნახე მეტი</a>
     </div>
       <ProductListings products={trendingProducts}></ProductListings>
