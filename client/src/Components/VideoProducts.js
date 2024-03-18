@@ -51,7 +51,7 @@ const VideoProducts = () => {
       <h1 className="xxs:text-md md:text-lg text-gray-900 font-bold">
         ვიდეო პროდუქცია
       </h1>
-      <img loading="lazy" src={video} alt="ვიდ"></img>
+      <img loading="lazy" src={video} className="xxs:hidden xs:block" alt="ვიდ"></img>
     </div>
 <a href="/view-more/4" className="text-blue-500 underline text-xs">ნახე მეტი</a>
   </div>

@@ -50,7 +50,7 @@ const BestDeals = () => {
       <h1 className="xxs:text-md md:text-lg text-gray-900 font-bold">
         საუკეთესო შეთავაზებები
       </h1>
-      <img loading="lazy" src={bestdeals} alt="შეთ"></img>
+      <img loading="lazy" className="xxs:hidden xs:block" src={bestdeals} alt="შეთ"></img>
     </div>
   </div>
     <ProductListings products={products}></ProductListings>

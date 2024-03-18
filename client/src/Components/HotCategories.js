@@ -49,7 +49,7 @@ const HotCategories = () => {
         <h1 className="xxs:text-center sm:text-left sm:ml-7 text-gray-900 font-bold">
           გაყიდვადი კატეგორიები
         </h1>
-        <img src={HotCategoryIcon} loading="lazy" alt="კატეგ"></img>
+        <img src={HotCategoryIcon} loading="lazy" className="xxs:hidden xs:block" alt="კატეგ"></img>
       </div>
       <div className="rounded-lg xl:grid xxs:grid place-items-center xxs:grid-cols-1 mobl:grid-cols-2 xl:grid-cols-4 lg:grid-cols-3 m-2">
       {!hotCategories.length ? [1,2,3,4].map((_, index) => {

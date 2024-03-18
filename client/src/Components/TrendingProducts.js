@@ -54,7 +54,7 @@ export const TrendingProducts = memo(() => {
       <h1 className="xxs:text-md md:text-lg text-gray-900 font-bold">
         ტრენდული პროდუქცია
       </h1>
-      <img loading="lazy" src={Fire} alt="ტრენდ"></img>
+      <img loading="lazy" className="xxs:hidden xs:block" src={Fire} alt="ტრენდ"></img>
     </div>
   <a href="/view-more/2" className="text-blue-500 underline text-xs">ნახე მეტი</a>
     </div>

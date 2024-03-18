@@ -52,7 +52,7 @@ const NewProducts = () => {
           <h1 className="xxs:text-md md:text-lg text-gray-900 font-bold">
             ახალი პროდუქცია
           </h1>
-          <img loading="lazy" src={NewIcon} alt="ახალი"></img>
+          <img loading="lazy" className="xxs:hidden xs:block" src={NewIcon} alt="ახალი"></img>
       </div>
       <a href="/view-more/1" className="text-blue-500 underline text-xs">ნახე მეტი</a>
     </div>
