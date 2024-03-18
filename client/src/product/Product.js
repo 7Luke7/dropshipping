@@ -336,12 +336,12 @@ const Product = () => {
                     
                     <div className="w-full flex xxs:flex-col xxs:items-start sm:flex-row gap-3 sm:items-center lg:items-start mt-2 justify-between h-full lg:h-1/2">
                     <div className="flex lg:w-3/4 xl:w-1/3 flex-col xl:justify-between h-full w-full gap-5">
-                        <button onClick={addToCart} className="flex items-center justify-center px-4 py-2 bg-[rgb(251,77,1)] text-white rounded gap-2 text-xs lg:text-sm">
+                        <button onClick={addToCart} className="flex items-center xxs:py-3 justify-center px-4 lg:py-2 bg-[rgb(251,77,1)] text-white rounded gap-2 text-xs lg:text-sm">
                             <img alt="Add to Cart" src={cart} className="w-4 h-4" />
                             <span>დამატება</span>
                         </button>
 
-                        <button onClick={navigatePurchase} className="flex items-center justify-center px-4 py-2 bg-green-500 rounded hover:bg-green-600 text-white text-xs lg:text-sm">
+                        <button onClick={navigatePurchase} className="flex items-center justify-center px-4 xxs:py-3 lg:py-2 bg-green-500 rounded hover:bg-green-600 text-white text-xs lg:text-sm">
                             <span>ყიდვა</span>
                         </button>
                     </div>

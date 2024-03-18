@@ -107,10 +107,10 @@ export const SearchProducts = ({category_id, page, isVideo, isAsc, fieldType, co
             return <Fragment>
                   <div className="flex gap-y-2 gap-x-1 flex-wrap xxs:justify-center lg:justify-between">
                   {Array.from({length: 10 }).map((_, index) => {
-                  return <div key={index} className="animate-pulse xxs:w-[220px] lg:w-[200px] xs:w-[230px] mobl:w-[160px] xl:w-[200px]">
+                  return <div key={index} className="animate-pulse xxs:w-[220px] lg:w-[200px] xs:w-[180px] mobl:w-[160px] xl:w-[200px]">
               <Fragment>
               <div
-              className="bg-gray-300 w-full h-[200px]"
+              className="bg-gray-300 rounded-t w-full h-[200px]"
             ></div>
               </Fragment>
               <Fragment>

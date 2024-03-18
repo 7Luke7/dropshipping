@@ -106,9 +106,9 @@ const Page = () => {
           </div>
           <div className="flex flex-wrap w-[95%] gap-5 m-auto xxs:pt-5 sm:pt-14 sm:justify-evenly xxs:justify-center">
             {Array.from({length: 18}).map((_, index) => {
-                return <div key={index} className="animate-pulse xxs:w-[220px] lg:w-[200px] xs:w-[230px] mobl:w-[160px] xl:w-[200px]">
+                return <div key={index} className="animate-pulse xxs:w-[200px] lg:w-[200px] xs:w-[180px] mobl:w-[200px] xl:w-[180px]">
                 <div className="relative">
-                  <div className="bg-gray-300 w-full xxs:h-[220px] sm:h-[180px]"></div>
+                  <div className="bg-gray-300 rounded-t w-full xxs:h-[220px] sm:h-[180px]"></div>
                 </div>
                 <Fragment>
                   <Fragment>

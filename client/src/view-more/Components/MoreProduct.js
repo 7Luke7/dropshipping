@@ -3,12 +3,12 @@ import {useState} from "react"
 export const MoreProduct = ({p}) => {    
       const [isLoading, setIsLoading] = useState(true)
 
-      return <div className="xxs:w-[220px] lg:w-[200px] xs:w-[230px] mobl:w-[160px] xl:w-[200px] transition-transform duration-100 ease-out transform hover:scale-[1.01]">
+      return <div className="xxs:w-[200px] lg:w-[200px] xs:w-[180px] mobl:w-[200px] xl:w-[180px] transition-transform duration-100 ease-out transform hover:scale-[1.01]">
         <a href={`/product/${p.id}`}>
           <div className="relative">
           <img
           loading="lazy"
-          className="object-cover border object-bottom h-[200px] w-full"
+          className="object-cover rounded-t border object-bottom h-[200px] w-full"
           src={isLoading ? `${p.bigImg}?x-oss-process=image/format,webp,image/resize,m_fill,w_30,h_30` : `${p.bigImg}?x-oss-process=image/format,webp,image/resize,m_fill,w_179,h_190`}
           onLoad={(e) => setIsLoading(false)}
           alt={p.nameEn.substring(0, 60)}

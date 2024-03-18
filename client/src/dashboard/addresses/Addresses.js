@@ -51,7 +51,7 @@ const Addresses = () => {
             }
             setAddresses(data)
         } catch (error) {   
-            alert(error.message)
+            setError(true)
         }
     }
 
