@@ -20,11 +20,10 @@ const get_inventory = async (req, res, next) => {
             throw new extendedError("არ ვაგზავნით მოცემულ ქვეყანაში", 400)
         }
 
-        console.log(country)
-        const checkUS = country.filter((c) => c.countryCode === "US")
-        const checkGB = country.filter((c) => c.countryCode === "GB")
-        const checkCN = country.filter((c) => c.countryCode === "CN")   
-        const checkDE = country.filter((c) => c.countryCode === "DE")   
+        const checkUS = country.find((c) => c.countryCode === "US")
+        const checkGB = country.find((c) => c.countryCode === "GB")
+        const checkFR = country.find((c) => c.countryCode === "FR")   
+        const checkDE = country.find((c) => c.countryCode === "DE")   
 
         const variant = req.body.purchase
 
@@ -35,7 +34,7 @@ const get_inventory = async (req, res, next) => {
 
         const weight = Math.ceil(variant.PACKWEIGHT / 100) * 100
         
-        const volumeWeight = (length / 10) * (width / 10) * (height / 10) / 6000
+        const volumeWeight = ((length / 10) * (width / 10) * (height / 10)) / 6000
 
         let isAragabarituli = false
         if (length / 10 > 150 || height / 10 > 150 || width / 10 > 150 || weight * 2 < volumeWeight ) {
@@ -45,15 +44,7 @@ const get_inventory = async (req, res, next) => {
         let hundredGramPrice
         let droOnex
 
-        if (checkCN.length !== 0 ) {
-            ship = "CN"
-            if (isAragabarituli) {
-                hundredGramPrice = 0.679 * volumeWeight
-            } else {
-                hundredGramPrice = 1.208 * (weight / 100)  
-            }
-            droOnex = "5-10" 
-        } else if(checkUS.length !== 0) {
+        if(checkUS) {
             ship = "US"
             if (isAragabarituli) {
                 hundredGramPrice = 0.491 * volumeWeight
@@ -61,7 +52,7 @@ const get_inventory = async (req, res, next) => {
                 hundredGramPrice = 0.86 * (weight / 100)
             }
             droOnex = "4-8" 
-        } else if(checkDE.length !== 0) {
+        } else if(checkDE) {
             ship = "DE"
             if (isAragabarituli) {
                 hundredGramPrice = 0.604 * volumeWeight
@@ -69,7 +60,7 @@ const get_inventory = async (req, res, next) => {
                 hundredGramPrice = 0.86 * (weight / 100)  
             }
             droOnex = "5-10"
-        } else if (checkGB.length !== 0) {
+        } else if (checkGB) {
             ship = "GB"
             if (isAragabarituli) {
                 hundredGramPrice = 0.491 * volumeWeight
@@ -77,11 +68,19 @@ const get_inventory = async (req, res, next) => {
                 hundredGramPrice = 0.86 * (weight / 100)  
             }
             droOnex = "4-8"
-        } else {
+        } else if (checkFR) {
             ship = "FR"
             hundredGramPrice = 3.77 * (weight / 100)  
             
             droOnex = "5-10"  
+        } else {
+            ship = "CN"
+            if (isAragabarituli) {
+                hundredGramPrice = 0.679 * volumeWeight
+            } else {
+                hundredGramPrice = 1.208 * (weight / 100)  
+            }
+            droOnex = "5-10" 
         }
 
         const request_logistics = await new CJClient().createRequest("https://developers.cjdropshipping.com/api2.0/v1/logistic/freightCalculate", "POST", {

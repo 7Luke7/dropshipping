@@ -4,7 +4,7 @@ import Search from "../public/search.svg"
 
 export const SearchProducts = () => {
     const [searchValue, setSearchValue] = useState("")
-    const [suggestion, setSuggestion] = useState([])
+    const [suggestion, setSuggestion] = useState(null)
     const [currentKeyPos, setCurrentKeyPos] = useState(null)
 
     const navigate = useNavigate()
@@ -77,9 +77,9 @@ export const SearchProducts = () => {
         }  
     }
     
-    return <form onSubmit={search} onKeyDown={handleKeyDown} className={`xxs:hidden ${suggestion && !suggestion.length ? "rounded-2xl" : "rounded-none"} sm:flex w-full flex-col flex-[5] sm:ml-3 relative lg:ml-2 justify-center bg-slate-50`}>
+    return <form onSubmit={search} onKeyDown={handleKeyDown} className={`xxs:hidden ${!suggestion ? "rounded-2xl" : "rounded-none"} sm:flex w-full flex-col flex-[5] sm:ml-3 relative lg:ml-2 justify-center bg-slate-50`}>
         <div className='flex justify-between items-center w-full'>
-        <input type='text' value={searchValue} onChange={(e) => changeInput(e.target.value)} className={`md:text-base ${suggestion && !suggestion.length ? "rounded-2xl" : "rounded-none"} sm:block p-2 w-full outline-none bg-slate-50`} placeholder='მოძებნე ინგლისურად...' />
+        <input type='text' lang="en-GB" value={searchValue} onChange={(e) => changeInput(e.target.value)} className={`md:text-base ${!suggestion ? "rounded-2xl" : "rounded-none"} sm:block p-2 w-full outline-none bg-slate-50`} placeholder='მოძებნე ინგლისურად...' />
             <button type='submit' className='flex items-center px-2 bg-slate-50'>
                 <img width={24} height={24} alt="მოძებნე" src={Search}></img>
             </button>

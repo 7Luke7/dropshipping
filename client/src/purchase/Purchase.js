@@ -14,6 +14,7 @@ import { BringService } from "./BringService"
 import { BringServiceLoading } from "./BringServiceLoading"
 import sadIcon from "../public/sad-icon.svg"
 import { Helmet } from "react-helmet-async"
+import { translate } from "../Components/Translate"
 
 const Purchase = () => {
     const [variant, setVariant] = useState({})
@@ -34,8 +35,8 @@ const Purchase = () => {
       const check_user_auth = async () => {
           try {
               const request = await fetch(`${process.env.REACT_APP_SERVER_URL}/api/profile`, {
-                  method: "GET",
-                  credentials: "include",
+                method: "GET",
+                credentials: "include",
               }) 
       
               const data = await request.json()
@@ -66,66 +67,51 @@ const Purchase = () => {
     }, [])
 
     useEffect(() => {
+      if (Object.keys(variant).length !== 0) {
+        get_area_inventory_info()
+      }
+    }, [variant])
+    
+    useEffect(() => {
       window.scrollTo(0, 0) 
       const purchase_targets = JSON.parse(sessionStorage.getItem("purchases"))
 
       if (!purchase_targets) {
         return setMessage("ნივთის შეძენის სესია ამოიწურა.")
       } 
-      setVariant(purchase_targets)
-
-      const get_area_inventory_info = async () => {
-          try {
-            const request_area_info = await fetch("https://cjdropshipping.com/elastic-api/product/inventory/getAreaInventoryInfo", {
+      
+      const get_all_variants = async () => {
+        try {
+          const request_all_variants = await fetch("https://m.cjdropshipping.com/elastic-api/cjProductInfo/v2/getProductDetail", {
             method: "POST",
             headers: {
-              "Content-Type": "application/json"
+                "Content-Type": "application/json"
             },
+            credentials: "omit",
             body: JSON.stringify({
-              id: purchase_targets.PID 
+                id: purchase_targets.pid
             })
           })
 
-          if (!request_area_info.ok) {
-            throw new Error("ვერ განხორციერლდა პროდუქტის ადგილმდებარეობის მოთხოვნა, სცადეთ თავიდან.")
-          }
+          const data = await request_all_variants.json()
 
-          const area_info = await request_area_info.json()
+          const target_variant = data.data.stanProducts.find((a) => a.ID === purchase_targets.vid)
 
-          get_logistic(area_info)
-          } catch (error) {
-            setMessage(error.message)
-          }
-      }
-      const get_logistic = async (areas) => {
-          try {
-            const get_inventory = await fetch(`${process.env.REACT_APP_SERVER_URL}/api/get_inventory`, {
-              credentials: "include",
-              method: "POST",
-              body: JSON.stringify({
-                areas,
-                purchase: purchase_targets
-              }),   
-              headers: {
-                "Content-Type": "application/json"
-              }
-            })
+          const translated_data = await translate([target_variant.NAMEEN || request_all_variants.NAMEEN, target_variant.STANDARD, target_variant.VARIANTKEY])
 
-            if (!get_inventory.ok) {
-              throw new Error("წარმოშვა შეცდომა გთხოვთ გაანახლეთ გვერდი.")
-            }
+          target_variant.NAMEEN = translated_data[0][0]
+          target_variant.STANDARD = translated_data[0][1] 
+          target_variant.VARIANTKEY = translated_data[0][2]
+          target_variant.quantity = purchase_targets.quantity
 
-            const data = await get_inventory.json()
-            
-            setInventory(data)
-            setSelectedLogistic(data.freight_data && data.freight_data[0])
-          } catch (error) {
-            setMessage(error.message)
-          }
+          setVariant(target_variant)
+        } catch (error) {
+          setMessage(error.message)
+        }
       }
 
       if (message === "გაქვს უფლება") {        
-        get_area_inventory_info()
+        get_all_variants()
       }
 
     }, [message])
@@ -136,6 +122,57 @@ const Purchase = () => {
           return setMessage("ტელეფონის ნომერი არასწორია")
         }
     }
+
+    const get_area_inventory_info = async () => {
+      try {
+        const request_area_info = await fetch("https://cjdropshipping.com/elastic-api/product/inventory/getAreaInventoryInfo", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          id: variant.PID 
+        })
+      })
+
+      if (!request_area_info.ok) {
+        throw new Error("ვერ განხორციერლდა პროდუქტის ადგილმდებარეობის მოთხოვნა, სცადეთ თავიდან.")
+      }
+
+      const area_info = await request_area_info.json()
+
+      get_logistic(area_info)   
+      } catch (error) {
+        setMessage(error.message)
+      }
+  }
+
+  const get_logistic = async (areas) => {
+      try {
+        const get_inventory = await fetch(`${process.env.REACT_APP_SERVER_URL}/api/get_inventory`, {
+          credentials: "include",
+          method: "POST",
+          body: JSON.stringify({
+            areas,
+            purchase: variant
+          }),   
+          headers: {
+            "Content-Type": "application/json"
+          }
+        })
+
+        if (!get_inventory.ok) {
+          throw new Error("წარმოშვა შეცდომა გთხოვთ გაანახლეთ გვერდი.")
+        }
+
+        const data = await get_inventory.json()
+        
+        setInventory(data)
+        setSelectedLogistic(data.freight_data && data.freight_data[0])
+      } catch (error) {
+        setMessage(error.message)
+      }
+  }
 
     const changeAddress = (address_id) => {
       const selectedAddress = user.addresses.filter((address) => address._id === address_id)
@@ -208,11 +245,9 @@ const Purchase = () => {
             <div className="flex flex-col rounded-lg h-full bg-white sm:flex-row">
             <img loading="lazy" className="rounded-md sm:h-full border sm:w-[144px] object-cover object-center" src={window.innerWidth >= 425 ? `${variant.IMG}?x-oss-process=image/format,webp,image/resize,m_fill,w_360,h_240` : `${variant.IMG}?x-oss-process=image/format,webp,image/resize,m_fill,w_240,h_144`} alt="ფოტო" />
             <div className="flex pt-2 w-full flex-col px-4">
-                <h1 className="font-bold">{variant.NAMEEN && variant.NAMEEN.slice(0, 100) || "სათაურის გარეშე"}...</h1>
+                <h1 className="font-bold">{variant.NAMEEN.slice(0, 100) || "სათაურის გარეშე"}...</h1>
                   <Fragment>
-                    <div className="flex gap-3 items-center">
                     <p className="text-gray-500 text-md">{variant.VARIANTKEY}</p>
-                    </div>
                     <p className="text-lg text-[rgb(255,128,64)] font-bold">${Number(variant_sell_price).toFixed(2)}</p>
                   </Fragment>
             </div>

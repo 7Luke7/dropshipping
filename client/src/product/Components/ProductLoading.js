@@ -15,8 +15,8 @@ export const ProductLoading = () => {
     </div>
     
     <div className="flex sm:gap-3 lg:gap-0 w-full lg:flex-row xxs:flex-col lg:h-full">
-        <div className="flex xxs:w-full h-full lg:w-[450px] flex-col">
-            <div className="bg-gray-200 animate-pulse xxs:w-full lg:w-[400px] xl:w-[450px] xxs:h-[400px] lg:h-[450px]"></div>
+        <div className="flex xxs:w-full h-full rounded-t lg:w-[450px] flex-col">
+            <div className="bg-gray-200 rounded-t animate-pulse xxs:w-full lg:w-[400px] xl:w-[450px] xxs:h-[400px] lg:h-[450px]"></div>
             <div className="xxs:h-[95px] lg:h-[60px] border p-1">
             </div>
         </div>

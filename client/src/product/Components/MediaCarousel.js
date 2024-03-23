@@ -64,21 +64,23 @@ export const MediaCarousel = memo(({product, curr, setCurr, id}) => {
             speed: 200,
             infinite: productImage.length >= 7 ? true : false,
             slidesToShow: productImage.length >= 7 ? 7 : productImage.length,   
-            swipe: false,
+            swipe: true,
             adaptiveHeight: true,
             slidesToScroll: 1,
             arrows: false,  
             lazyLoad: true,
+            swipeToSlide: 3,
             responsive: [
                 {
                   breakpoint: 768,
                   settings: {
                     speed: 200,
-                    swipe: false,
+                    swipe: true,
                     infinite: productImage.length >= 3 ? true : false,
                     slidesToShow: productImage.length >= 3 ? 3 : productImage.length,   
                     adaptiveHeight: true,
                     slidesToScroll: 1,
+                    swipeToSlide: 2,
                     arrows: false,
                     lazyLoad: true,
                   }
@@ -105,8 +107,8 @@ export const MediaCarousel = memo(({product, curr, setCurr, id}) => {
                     return
                 }
             }}  
-            className="w-full xxs:h-[400px] lg:h-[450px] xl:w-[450px] xxs:object-contain lg:object-cover">
-        </img> : <div className="bg-gray-200 lg:w-[400px] xl:w-[450px] xxs:h-[400px] lg:h-[450px]"></div>}
+            className="w-full rounded-t xxs:h-[400px] lg:h-[450px] xl:w-[450px] xxs:object-contain lg:object-cover">
+        </img> : <div className="bg-gray-200 rounded-t lg:w-[400px] xl:w-[450px] xxs:h-[400px] lg:h-[450px]"></div>}
         </div>
         <div className="relative xxs:min-h-[100px] border-b-0 border-l-0 border-r-0 border lg:min-h-[60px] w-full">
             {productImage.length > 0 && 

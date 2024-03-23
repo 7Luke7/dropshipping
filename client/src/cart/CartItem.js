@@ -8,7 +8,7 @@ export const CartItem = ({v, i, cartItemDelete}) => {
     const navigate = useNavigate()
 
     const list_as_purchase = () => {
-        const variant_with_quantity = {...v, quantity}
+        const variant_with_quantity = {pid: v.PID, vid: v.ID, quantity}
         sessionStorage.setItem("purchases", JSON.stringify(variant_with_quantity))
         navigate("/purchase")
     }

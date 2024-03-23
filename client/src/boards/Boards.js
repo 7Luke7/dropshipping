@@ -147,7 +147,7 @@ const Page = () => {
     </Helmet>
     <div id="closeScroll" style={{ backgroundColor: board.backColor }} className="h-full min-h-screen w-full">
             <img src={board.activityImgUrl} loading="lazy" className="w-full xxs:h-[80px] xs:h-[120px] md:h-[260px] md:object-contain sm:h-[180px] mobl:h-[140px] object-cover object-top lg:h-[200px] xl:h-[450px]" alt="ბანერი"></img>
-            <div className="lg:w-[80%] xxs:w-full m-auto">
+            <div className="lg:w-[80%] xxs:w-full m-auto" id="start">
                 <ul style={{backgroundColor: board.allThreeBackColor}} id="activityBar" className="h-[70px] xxs:hidden right-0 gap-2 sm:sticky z-50 top-0 lg:-translate-y-[3%] lg:w-full sm:flex items-center justify-around">
                     {board.threeNames && board.threeNames.map((name, i) => {
                         return <button key={i} style={{color: board.allThreeFontColor}} onClick={() => get_activities_by_id({id: name.id, index: i})} className="relative outline-none h-full flex items-center">
@@ -167,7 +167,7 @@ const Page = () => {
                     </a>
                 </div>
                 
-                             <div id="start" className="bg-white pb-20 mt-20 w-full">
+                             <div className="bg-white pb-20 mt-20 w-full">
                                     <div className="lg:absolute xxs:-translate-y-[1px] xxs:sticky left-1/2 lg:min-w-[40%] xxs:border-2 xxs:border-t-0 xxs:border-r-0 xxs:border-l-0 lg:border-0 w-full lg:w-[60%] flex items-center justify-center lg:rounded-lg top-0 xxs:rounded-none lg:-translate-x-1/2 right-1/2 z-10 p-2" style={{backgroundColor: board.oneThreeBackColor}}>
                                     <h1 style={{color: board.oneThreeFontColor}} className="font-bold md:text-2xl xxs:text-md">{board.threeNames[chosen || 0].name}</h1>
                                 </div>

@@ -114,6 +114,7 @@ const Product = () => {
             
             const pass_on = []
     
+            console.log(pass_on)
             for (let i = 0; i < lists.length; i++) {
                 for (let j = 0; j < lists[i].keyObj.length; j++) {
                     for (let k = 0; k < filtered_variants.length; k++) {
@@ -181,13 +182,7 @@ const Product = () => {
 
     const navigatePurchase = async () => {
         if (!Object.keys(variantObj).length) return
-        const translated_data = await translate([variantObj.NAMEEN || product.NAMEEN, variantObj.STANDARD, variantObj.VARIANTKEY])
-
-        variantObj.NAMEEN = translated_data[0][0]
-        variantObj.STANDARD = translated_data[0][1] 
-        variantObj.VARIANTKEY = translated_data[0][2] 
-
-        const variant_with_quantity = {...variantObj, quantity}
+        const variant_with_quantity = {pid: variantObj.PID, vid: variantObj.ID, quantity}
         sessionStorage.setItem("purchases", JSON.stringify(variant_with_quantity))
         navigate("/purchase")
     }
@@ -283,7 +278,7 @@ const Product = () => {
             <ChildCategories product={product}></ChildCategories>
             
             <div className="flex sm:gap-3 lg:gap-0 w-full lg:flex-row xxs:flex-col lg:h-full">
-                <div className="flex xxs:w-full h-full lg:w-[400px] xl:w-[450px] outline outline-1 outline-gray-100 flex-col">
+                <div className="flex xxs:w-full h-full lg:w-[400px] rounded-t xl:w-[450px] outline outline-1 outline-gray-100 flex-col">
                     <MediaCarousel product={product} curr={curr} setCurr={setCurr} id={id}></MediaCarousel>
                 </div>
                 <div className="flex xxs:mt-5 lg:mt-0 justify-between w-full lg:h-full lg:ml-8 flex-col">
