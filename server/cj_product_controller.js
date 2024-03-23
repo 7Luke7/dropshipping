@@ -2,6 +2,8 @@ require("dotenv").config()
 const CJClient = require("./cj_authentication/cj_authentication");
 const extendedError = require("./errors/ExtendedError");
 
+// You can get order_id of BOG from localstorage
+
 const get_inventory = async (req, res, next) => {
     try {
         // use the api of the onex for getting the prices so it will be up to data
