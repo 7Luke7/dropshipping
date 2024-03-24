@@ -114,7 +114,6 @@ const Product = () => {
             
             const pass_on = []
     
-            console.log(pass_on)
             for (let i = 0; i < lists.length; i++) {
                 for (let j = 0; j < lists[i].keyObj.length; j++) {
                     for (let k = 0; k < filtered_variants.length; k++) {
@@ -122,8 +121,7 @@ const Product = () => {
                         if (splited_filter_keys.includes(lists[i].keyObj[j].eng_name)) {
                             lists[i].keyObj[j].disable = false
                             pass_on.push(lists[i].keyObj[j].eng_name)
-                            pass_on.push(lists[index].name)
-                        } else if (!pass_on.includes(lists[i].keyObj[j].eng_name) && !pass_on.includes(lists[i].name)) {
+                        } else if (!pass_on.includes(lists[i].keyObj[j].eng_name)) {
                             lists[i].keyObj[j].disable = true
                         }
                     }

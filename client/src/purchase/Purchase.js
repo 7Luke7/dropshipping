@@ -28,7 +28,12 @@ const Purchase = () => {
     const [phoneNumber, setPhoneNumber] = useState("")
     const [selectedLogistic, setSelectedLogistic] = useState({})
     const [cardOwner, setCardOwner] = useState("")
-    const [cardNumber, setCardNumber] = useState("")
+    const [cardCredentials, setCardCredentials] = useState({
+      number: "",
+      cvc: "",
+      expiry: ""
+    })
+    const [error, setError] = useState("")
 
     const phoneRegex = /^\d{9}$/;
     useEffect(() => {
@@ -117,10 +122,10 @@ const Purchase = () => {
     }, [message])
 
     const processPurchase = (e) => {
-        e.preventDefault()
-        if (!phoneRegex.test(phoneNumber)) {
-          return setMessage("ტელეფონის ნომერი არასწორია")
-        }
+      e.preventDefault()
+      if (!phoneRegex.test(phoneNumber)) {
+        return setMessage("ტელეფონის ნომერი არასწორია.")
+      }       
     }
 
     const get_area_inventory_info = async () => {
@@ -193,14 +198,15 @@ const Purchase = () => {
 
     const variant_sell_price = variant.quantity * variant.SELLPRICE
 
+    console.log(message)
     return <Fragment>
         <Helmet>
-          <title>Slashy - შეძენა</title>
+          <title>Slash - შეძენა</title>
         </Helmet>     
     {message === "" ?  <div className='flex space-x-2 justify-center items-center bg-white h-screen'>
-         <div className='h-8 w-8 bg-[rgb(237,123,82)] rounded-full animate-bounce [animation-delay:-0.3s]'></div>
-       <div className='h-8 w-8 bg-[rgb(237,123,82)] rounded-full animate-bounce [animation-delay:-0.15s]'></div>
-       <div className='h-8 w-8 bg-[rgb(237,123,82)] rounded-full animate-bounce'></div>
+      <div className='h-8 w-8 bg-[rgb(237,123,82)] rounded-full animate-bounce [animation-delay:-0.3s]'></div>
+      <div className='h-8 w-8 bg-[rgb(237,123,82)] rounded-full animate-bounce [animation-delay:-0.15s]'></div>
+      <div className='h-8 w-8 bg-[rgb(237,123,82)] rounded-full animate-bounce'></div>
    </div> : message === "მომხმარებელს არ აქვს წვდომის უფლება" ? <div className="h-screen">
     <Header></Header> 
             <div className="flex flex-col items-center justify-center h-[75%]">
@@ -212,7 +218,7 @@ const Purchase = () => {
             </div>
         </div>
         <Footer />
-        </div> : message === "გაქვს უფლება" ? <Fragment>
+        </div> : message === "გაქვს უფლება" || message === "ტელეფონის ნომერი არასწორია." || message === "" ? <Fragment>
         <div className="flex flex-col items-center border-b bg-white py-4 sm:flex-row sm:px-10 lg:px-20 xl:px-32">
             <a href="/">
             <img loading="lazy" className="xxs:w-[80px] lg:w-[90px] object-cover xxs:h-[50px] lg:h-[40px]" src={Logo} alt="ლოგო"></img>
@@ -248,7 +254,7 @@ const Purchase = () => {
                 <h1 className="font-bold">{variant.NAMEEN.slice(0, 100) || "სათაურის გარეშე"}...</h1>
                   <Fragment>
                     <p className="text-gray-500 text-md">{variant.VARIANTKEY}</p>
-                    <p className="text-lg text-[rgb(255,128,64)] font-bold">${Number(variant_sell_price).toFixed(2)}</p>
+                    <p id="price" className="text-lg text-[rgb(255,128,64)] font-bold">${Number(variant_sell_price).toFixed(2)}</p>
                   </Fragment>
             </div>
             </div>
@@ -258,7 +264,7 @@ const Purchase = () => {
         <div className="xxs:mb-5 lg:mb-0">
             <p className="mt-8 text-lg font-medium">მიტანის სერვისი</p>
             
-            {message === "წარმოშვა შეცდომა გთხოვთ გაანახლეთ გვერდი." ? <div>
+            {message === "წარმოიშვა შეცდომა გთხოვთ გაანახლეთ გვერდი." ? <div>
                 <h1 className="text-gray-500">წარმოშვა შეცდომა, გთხოვთ გაანახლეთ გვერდი.</h1>
               </div> : inventory && !inventory.freight_data ? <BringServiceLoading></BringServiceLoading> : <BringService changeLogistic={changeLogistic} inventory={inventory} selectedLogistic={selectedLogistic}></BringService>}
         </div>
@@ -277,7 +283,7 @@ const Purchase = () => {
                 <img loading="lazy" src={mobile} alt="ტელეფონი გადახდა"></img>
               </div>
             </div>
-            {message === "ტელეფონის ნომერი არასწორია" && <p className="text-xs text-red-500">ნომერი არასწორია.</p>}
+            {message === "ტელეფონის ნომერი არასწორია." && <p className="text-xs text-red-500">{message}</p>}
             <p htmlFor="მფლობელი" className="mt-4 mb-2 block text-sm font-medium">ბარათის მფლობელი</p>
             <div className="relative">
               <input type="text" onChange={(e) => setCardOwner(e.target.value)} value={cardOwner} name="მფლობელი" placeholder='სახელი და გვარი' className="w-full rounded-md border border-gray-200 px-4 py-3 pl-11 text-sm shadow-sm outline-none focus:z-10 focus:border-[rgb(243,104,29)] focus:ring-[rgb(243,104,29)]" />
@@ -288,14 +294,21 @@ const Purchase = () => {
               <p htmlFor="ბარათის ნომერი" className="mt-4 mb-2 block text-sm font-medium">ბარათის დეტალები</p>
               <div className="flex">
                 <div className="relative w-7/12 flex-shrink-0">
-                  <input type="text" onChange={(e) => setCardNumber(e.target.value)} value={cardNumber} name="ბარათის ნომერი" className="w-full rounded-md border border-gray-200 px-2 py-3 pl-11 text-sm shadow-sm outline-none focus:z-10 focus:border-[rgb(243,104,29)] focus:ring-[rgb(243,104,29)]" placeholder="xxxx-xxxx-xxxx-xxxx" />
+                  <input type="text" onChange={(e) => setCardCredentials((prev) => {
+                    return {...prev, number: e.target.value}
+                  })} value={cardCredentials.number} name="ბარათის ნომერი" className="w-full rounded-md border border-gray-200 px-2 py-3 pl-11 text-sm shadow-sm outline-none focus:z-10 focus:border-[rgb(243,104,29)] focus:ring-[rgb(243,104,29)]" placeholder="xxxx-xxxx-xxxx-xxxx" />
                   <div className="pointer-events-none absolute inset-y-0 left-0 inline-flex items-center px-3">
                   <img loading="lazy" src={card} alt="ბარათი"></img>
                   </div>
                 </div>
-                <input type="text" name="ბარათის ვადა" className="w-full rounded-md border border-gray-200 px-2 py-3 text-sm shadow-sm outline-none focus:z-10 focus:border-[rgb(243,104,29)] focus:ring-[rgb(243,104,29)]" placeholder="MM/YY" />
-                <input type="text" name="ბარათის-cvc" className="w-1/6 flex-shrink-0 rounded-md border border-gray-200 px-2 py-3 text-sm shadow-sm outline-none focus:z-10 focus:border-[rgb(243,104,29)] focus:ring-[rgb(243,104,29)]" placeholder="CVC" />
+                <input type="text" name="ბარათის ვადა" value={cardCredentials.expiry} onChange={(e) => setCardCredentials((prev) => {
+                    return {...prev, expiry: e.target.value}
+                  })} className="w-full rounded-md border border-gray-200 px-2 py-3 text-sm shadow-sm outline-none focus:z-10 focus:border-[rgb(243,104,29)] focus:ring-[rgb(243,104,29)]" placeholder="MM/YY" />
+                <input type="text" name="ბარათის-cvc" value={cardCredentials.cvc} onChange={(e) => setCardCredentials((prev) => {
+                    return {...prev, cvc: e.target.value}
+                  })} className="w-1/6 flex-shrink-0 rounded-md border border-gray-200 px-2 py-3 text-sm shadow-sm outline-none focus:z-10 focus:border-[rgb(243,104,29)] focus:ring-[rgb(243,104,29)]" placeholder="CVC" />
               </div>
+              {message === "ბარათის დეტალები არასწორია." && <p className="text-xs text-red-500">{message}</p>}
             <div className='flex justify-between items-center'>
             <p className="mt-4 mb-2 block text-sm font-medium">მისამართი</p>
             {user.addresses.length > 0 && <select onChange={(e) => changeAddress(e.target.value)} className='text-sm mt-4 mb-2 py-1 rounded px-2 border'>
