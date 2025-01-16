@@ -106,7 +106,7 @@ export const SearchProducts = ({category_id, page, isVideo, isAsc, fieldType, co
         if (isLoading) {
             return <Fragment>
                   <div className="flex gap-y-2 gap-x-1 flex-wrap xxs:justify-center lg:justify-between">
-                  {Array.from({length: 10 }).map((_, index) => {
+                  {Array.from({length: 14 }).map((_, index) => {
                   return <div key={index} className="animate-pulse xxs:w-[220px] lg:w-[200px] xs:w-[180px] mobl:w-[160px] xl:w-[200px]">
               <Fragment>
               <div
@@ -151,7 +151,7 @@ export const SearchProducts = ({category_id, page, isVideo, isAsc, fieldType, co
         <meta property="og:url" content={window && window.location.href} />
         <title>{keyword ? `${keyword} გასაყიდად` : keywords} - Slash</title>
     </Helmet>  
-          <div className="flex gap-y-2 gap-x-1 flex-wrap xxs:justify-center lg:justify-between">
+          <div className={`flex gap-y-2 gap-x-1 flex-wrap xxs:justify-center lg:justify-between`}> 
            {products.content[0].productList.map((p, i) => {
           return <Fragment key={i}>
               <SearchProduct p={p}></SearchProduct>

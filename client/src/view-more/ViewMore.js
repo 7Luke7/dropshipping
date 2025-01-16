@@ -30,7 +30,6 @@ const Page = () => {
                 head_url.url += "https://cjdropshipping.com/elastic-api/cj/homePage/v2/selectNewProductList"
                 head_url.body = JSON.stringify({"timeFlag": "video", "pageSize": 50})
             }
-            console.log(head_url.url)
             const request = await fetch(head_url.url, {
                 method: "POST",
                 credentials: "omit",
@@ -105,7 +104,7 @@ const Page = () => {
             <div className="w-1/2 h-6 bg-[rgb(251,77,1)] rounded animate-pulse"></div>
           </div>
           <div className="flex flex-wrap w-[95%] gap-5 m-auto xxs:pt-5 sm:pt-14 sm:justify-evenly xxs:justify-center">
-            {Array.from({length: 18}).map((_, index) => {
+            {Array.from({length: 14}).map((_, index) => {
                 return <div key={index} className="animate-pulse xxs:w-[200px] lg:w-[200px] xs:w-[180px] mobl:w-[200px] xl:w-[180px]">
                 <div className="relative">
                   <div className="bg-gray-300 rounded-t w-full xxs:h-[220px] sm:h-[180px]"></div>
@@ -127,7 +126,7 @@ const Page = () => {
           <div className="absolute left-1/2 xxs:w-full sm:w-[50%] flex items-center justify-center rounded-tr-lg rounded-tl-lg -translate-x-1/2 -translate-y-[80%] right-1/2 z-10 h-[50px] bg-white">
               <h1 className="xxs:text-lg text-[rgb(251,77,1)] font-semibold md:text-2xl">{title}</h1>
           </div>
-        <div className="flex flex-wrap w-[95%] gap-5 m-auto xxs:pt-5 sm:pt-14 sm:justify-evenly xxs:justify-center">
+        <div className="flex flex-wrap w-[95%] gap-5 m-auto xxs:pt-5 sm:pt-14 xxs:justify-center sm:justify-evenly">
           <MoreProducts products={products}></MoreProducts>
       </div>
     </div>
