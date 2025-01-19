@@ -23,8 +23,10 @@ const sess = session({
     store: MongoStore.create({
         mongoUrl: process.env.DATABASE_URL,
     }),
-    cookie: {   
-        secure: true
+    cookie: {
+        secure: true, 
+        httpOnly: true, 
+        sameSite: 'None'  
     }
 })
 const origin = process.env.URL
