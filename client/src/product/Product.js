@@ -174,7 +174,7 @@ const Product = () => {
                 document.getElementById("notification").style.display = "block"
             }
         } catch (error) {
-            if (error.message === 401) {
+            if (error.message === "401") {
                 const cart = JSON.parse(localStorage.getItem('cart')) || [];                
                 const exists = cart.find((c) => c.ID === variantObj.ID)
                 if (exists) {
