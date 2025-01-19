@@ -37,7 +37,6 @@ export const SearchProducts = () => {
                 "Content-Type": "application/json"
             },
             credentials: "omit",
-            cache: "force-cache",
             body: JSON.stringify({"keyWord": inp}),
         })
 

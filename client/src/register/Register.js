@@ -1,8 +1,7 @@
 import { Footer } from "../Components/Footer";
 import { useNavigate } from "react-router-dom";
-import { Fragment, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import check from "../public/check.svg"
-import {Helmet} from "react-helmet-async"
 import Logo from "../public/slashy_logo.webp"
 
 const Register = () => {
@@ -11,6 +10,9 @@ const Register = () => {
   const [message, setMessage] = useState("")
   
   const navigate = useNavigate()
+  useEffect(() => {
+    document.title = "Slash რეგისტრაცია"
+  }, [])
 
   const SubmitRegForm = async (e) => {
       e.preventDefault()
@@ -49,19 +51,14 @@ const Register = () => {
 
   return (
       <Fragment>
-      <Helmet>
-        <title>
-          Slash რეგისტრაცია
-        </title>
-      </Helmet>
     <div className="xxs:flex xs:block xxs:items-center xxs:justify-center sm:block p-7">
         <a href="/">
           <img loading="lazy" className="xxs:w-[80px] lg:w-[90px] object-cover xxs:h-[50px] lg:h-[40px]" src={Logo} alt="ლოგო"></img>
         </a>
     </div>
-      <section className="flex sm:mb-0 xxs:w-[95%] sm:w-[95%] lg:w-[80%] m-auto justify-between">
+      <section className="flex sm:mb-0 h-[70vh] xxs:w-[95%] sm:w-[95%] lg:w-[80%] m-auto justify-between">
         <div className="h-full xxs:hidden sm:block flex-[6]">
-          <ul className="flex gap-4 pl-5 flex-col justify-center h-[450px]">
+          <ul className="flex gap-4 pl-5 flex-col justify-end h-[450px]">
             <div className="flex flex-col space-y-3">
               <li className="pl-3 text-sm text-gray-800 font-semibold">
                 პოპულარული პროდუქტები

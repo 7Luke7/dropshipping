@@ -12,7 +12,7 @@ export const Filter = memo(({isVideo, countryCode}) => {
 
       setMinPrice(minInput);
       setMaxPrice(maxInput);
-    }, [])
+    }, [searchParams])
 
     const filterByPrice = (e) => {
       window.scrollTo(0, 0)

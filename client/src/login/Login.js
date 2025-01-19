@@ -1,7 +1,6 @@
 import { Footer } from "../Components/Footer";
 import { useNavigate } from "react-router-dom";
-import { Fragment, useState } from "react";
-import {Helmet} from "react-helmet-async"
+import { Fragment, useEffect, useState } from "react";
 import Logo from "../public/slashy_logo.webp"
 
 const Login = () => {
@@ -10,6 +9,10 @@ const Login = () => {
   const [message, setMessage] = useState("")
 
   const navigate = useNavigate()
+
+  useEffect(() => {
+    document.title = "Slash შესვლა"
+  }, [])
 
   const SubmitLoginForm = async (e) => {
     e.preventDefault()
@@ -48,17 +51,12 @@ const Login = () => {
 
   return (
     <Fragment>
-      <Helmet>
-        <title>
-          Slash შესვლა
-        </title>
-      </Helmet>
     <div className="xxs:flex xs:block xxs:items-center xxs:justify-center sm:block p-7">
         <a href="/">
             <img loading="lazy" className="xxs:w-[80px] lg:w-[90px] object-cover xxs:h-[50px] lg:h-[40px]" src={Logo} alt="ლოგო"></img>
         </a>
     </div>
-      <section className="flex items-center justify-center">
+      <section className="flex items-center justify-center h-[70vh]">
         <div className="flex h-full flex-[6] flex-col justify-center px-6 py-12 lg:px-8">
           <div className="h-[450px]">
             <div className="sm:mx-auto sm:w-full sm:max-w-sm">

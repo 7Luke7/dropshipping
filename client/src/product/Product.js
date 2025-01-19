@@ -1,14 +1,13 @@
 import { useEffect, Fragment, useMemo, useState, lazy, Suspense } from "react"
 import { Footer } from "../Components/Footer"
 import { Header } from "../Components/Header"
-import { useNavigate, useParams } from "react-router-dom"
+import { useParams } from "react-router-dom"
 import cart from "../public/cart-white.svg"
 import RemovedProduct from "../public/removed_product.svg" 
 import {ChildCategories} from "./Components/ChildCategories"
 import {ProductVariants} from "./Components/ProductVariants"
 import {translate} from "../Components/Translate"
 import {ProductLoading} from "./Components/ProductLoading" 
-import {Helmet} from "react-helmet-async"
 import { MediaCarousel } from "./Components/MediaCarousel"
 import {AdditionalInformation} from "./Components/AdditionalInformation"
 
@@ -23,7 +22,6 @@ const Product = () => {
     const [curr, setCurr] = useState({})
 
     const {id} = useParams()    
-    const navigate = useNavigate()
 
     useEffect(() => {
         const getProductDetail = async () => {
@@ -61,6 +59,20 @@ const Product = () => {
             data["CATEGORY"] = product_translated[0][(v_keys_length + 1) - diff]
             data["NAMEEN"] = product_translated[0][(v_keys_length + 2) - diff]
             data["DESCRIPTION"] = product_translated[0][(v_keys_length + 3) - diff]
+
+            const link1 = document.createElement('link');
+            link1.rel = 'stylesheet';
+            link1.type = 'text/css';
+            link1.href = 'https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css';
+
+            const link2 = document.createElement('link');
+            link2.rel = 'stylesheet';
+            link2.type = 'text/css';
+            link2.href = 'https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css';
+
+            document.head.appendChild(link1);
+            document.head.appendChild(link2);
+                    document.title = `${data.NAMEEN} - Slash`
 
             setProduct(data)
             } catch (error) {
@@ -162,7 +174,7 @@ const Product = () => {
                 document.getElementById("notification").style.display = "block"
             }
         } catch (error) {
-            if (error.message == 401) {
+            if (error.message === 401) {
                 const cart = JSON.parse(localStorage.getItem('cart')) || [];                
                 const exists = cart.find((c) => c.ID === variantObj.ID)
                 if (exists) {
@@ -177,14 +189,6 @@ const Product = () => {
             }
         }
     }
-
-    const navigatePurchase = async () => {
-        if (!Object.keys(variantObj).length) return
-        const variant_with_quantity = {pid: variantObj.PID, vid: variantObj.ID, quantity}
-        sessionStorage.setItem("purchases", JSON.stringify(variant_with_quantity))
-        navigate("/purchase")
-    }
-
 
     // PACKAGE_SIZE <------------------------------------------ Make this dynamic 
     const standard = Object.keys(variantObj).length === 0 ? product && product.stanProducts && product.stanProducts[0].STANDARD : variantObj.STANDARD
@@ -234,43 +238,6 @@ const Product = () => {
             observerTest.observe(show_additional);
 
           return <Fragment>
-            <Helmet>
-        <meta
-          name="description"
-          content={`${product.NAMEEN} - Slash.ge`}
-        />
-        <meta
-          name="keywords"
-          content={`Slash, Slash.ge, ${product.NAMEEN}`}
-        />
-        <link rel="canonical" href={window.location.href} />
-        <title>{product.NAMEEN} - Slash.ge</title>
-
-        <meta property="og:type" content="website" />
-        <meta property="og:title" content={`შეიძინე - ${product.NAMEEN} - Slash.ge`}/>
-        <meta
-          property="og:description"
-          content={`${product.NAMEEN} - Slash.ge`}
-        />
-        <meta
-          property="og:image"
-          content={product.newImgList[0]}
-        />
-        <meta property="og:image:width" content="1200" />
-        <meta property="og:image:height" content="900" />
-        <meta property="og:url" content={window.location.href} />
-        <link
-          rel="stylesheet"
-          type="text/css"
-          charset="UTF-8"
-          href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css"
-        />
-        <link
-          rel="stylesheet"
-          type="text/css"
-          href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css"
-        />
-    </Helmet>
     <main className="h-full w-[100%] mx-auto"> 
             <div className="xxs:w-[95%] mobl:w-[90%] lg:w-[90%] sm:w-[80%] mx-auto">
             <ChildCategories product={product}></ChildCategories>
@@ -327,15 +294,11 @@ const Product = () => {
                         
                         <ProductVariants changeVarientArr={changeVarientArr} product={product}></ProductVariants>
                     
-                    <div className="w-full flex xxs:flex-col xxs:items-start sm:flex-row gap-3 sm:items-center lg:items-start mt-2 justify-between h-full lg:h-1/2">
+                    <div className="w-full flex xxs:flex-col xxs:items-start sm:flex-row gap-3 sm:items-center lg:items-end mt-2 justify-between h-full lg:h-1/2">
                     <div className="flex lg:w-3/4 xl:w-1/3 flex-col xl:justify-between h-full w-full gap-5">
-                        <button onClick={addToCart} className="flex items-center xxs:py-3 justify-center px-4 lg:py-2 bg-[rgb(251,77,1)] text-white rounded gap-2 text-xs lg:text-sm">
+                        <button onClick={addToCart} className="flex items-center xxs:py-3 justify-center apx-4 lg:py-2 bg-[rgb(251,77,1)] text-white rounded gap-2 text-xs lg:text-sm">
                             <img alt="Add to Cart" src={cart} className="w-4 h-4" />
                             <span>დამატება</span>
-                        </button>
-
-                        <button onClick={navigatePurchase} className="flex items-center justify-center px-4 xxs:py-3 lg:py-2 bg-green-500 rounded hover:bg-green-600 text-white text-xs lg:text-sm">
-                            <span>ყიდვა</span>
                         </button>
                     </div>
                     <div className="xxs:w-full lg:w-full xl:w-2/4 h-full px-3 gap-5 py-2 flex lg:h-[100px] flex-col border justify-between rounded border-gray-100">

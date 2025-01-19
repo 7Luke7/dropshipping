@@ -2,7 +2,7 @@ import { useState } from "react"
 
 export const HotCategoriesList = ({it}) => {
     const [isLoading, setIsLoading] = useState(true)
-    return <div className="transition-transform duration-100 ease-out transform md:hover:scale-[1.02] md:hover:rounded-tr-lg md:hover:rounded-tl-lg md:hover:border-gray-300 md:hover:border mobl:w-full xs:w-[260px] xxs:w-[240px] sm:h-[350px] p-2">
+    return <div className="transition-transform duration-100 ease-out transform md:hover:scale-[1.02] md:hover:rounded-tr-lg md:hover:rounded-tl-lg md:hover:border-gray-300 md:hover:border md:w-[280px] mobl:w-full xs:w-[260px] xxs:w-[240px] sm:h-[350px] p-2">
             <a href={`search?category=${it.categoryId}&page=1`}>
                 <img
                 loading="lazy"

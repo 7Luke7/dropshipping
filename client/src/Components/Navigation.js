@@ -8,6 +8,18 @@ export const Navigation = () => {
   const [carousel, setCarousel] = useState([])
 
     useEffect(() => {
+      const link1 = document.createElement('link');
+      link1.rel = 'stylesheet';
+      link1.type = 'text/css';
+      link1.href = 'https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css';
+
+      const link2 = document.createElement('link');
+      link2.rel = 'stylesheet';
+      link2.type = 'text/css';
+      link2.href = 'https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css';
+
+      document.head.appendChild(link1);
+      document.head.appendChild(link2);
     const get_carousel_products = async () => {
         try {
           const request = await fetch("https://m.cjdropshipping.com/cj/banner/getWebHomeBannerInfo", {
@@ -54,7 +66,7 @@ export const Navigation = () => {
         </div>
         <MainSearchNav setCatChild={setCatChild}></MainSearchNav>
       </div>
-      <div className='w-full sm:rounded-lg lg:rounded-bl-none lg:h-[480px] lg:rounded-tl-none overflow-x-hidden overflow-y-hidden relative'>
+      <div className='w-full sm:rounded-lg lg:rounded-bl-none lg:h-[474px] lg:rounded-tl-none overflow-x-hidden overflow-y-hidden relative'>
         <LandingCarousel carousel={carousel}></LandingCarousel> 
         <ChildCats catChild={catChild}></ChildCats>
      </div>

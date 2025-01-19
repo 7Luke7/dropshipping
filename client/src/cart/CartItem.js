@@ -1,17 +1,8 @@
 import { useState } from "react"
-import { useNavigate } from "react-router-dom"
 
 export const CartItem = ({v, i, cartItemDelete}) => {
     const [isLoading, setIsLoading] = useState(true)
     const [quantity, setQuantity] = useState(v.quantity)
-
-    const navigate = useNavigate()
-
-    const list_as_purchase = () => {
-        const variant_with_quantity = {pid: v.PID, vid: v.ID, quantity}
-        sessionStorage.setItem("purchases", JSON.stringify(variant_with_quantity))
-        navigate("/purchase")
-    }
 
     return <div key={i} className="lg:w-[300px] lg:h-[560px] xxs:w-[250px] sm:w-[250px] md:w-[250px] md:h-[550px] xs:w-[300px] flex flex-col m-auto">
     <a href={`/product/${v.PID}`}>
@@ -29,7 +20,7 @@ export const CartItem = ({v, i, cartItemDelete}) => {
               className="xxs:text-[11px] min-h-[58px] xs:text-[14px] md:text-[12px] md:w-full text-gray-800 font-bold"
               itemProp="name"
               >
-                  {v.NAMEEN && v.NAMEEN.slice(0, 100) + "..." || "სათაური არ აქვს."}
+                  {v.NAMEEN ? v.NAMEEN.slice(0, 100) + "..." : "სათაური არ აქვს."}
               </h1>
         </a>
 
@@ -71,10 +62,7 @@ export const CartItem = ({v, i, cartItemDelete}) => {
                   </button>
               </div>
           </div>
-          <div className="flex md:flex-row items-center justify-between w-full">
-              <button onClick={list_as_purchase} className="bg-green-500 w-28 justify-center rounded gap-3 font-normal text-white flex items-center p-2 space-3">ყიდვა</button>
-              <button className="bg-red-500 w-28 justify-center rounded gap-3 font-normal text-white flex items-center p-2 space-3" onClick={() => cartItemDelete(v.ID, i)}>წაშლა</button>
-          </div>
+              <button className="bg-red-500 justify-center rounded gap-3 w-full font-normal text-white flex items-center p-2 space-3" onClick={() => cartItemDelete(v.ID, i)}>წაშლა</button>
         </div>
 
       </article>

@@ -27,7 +27,7 @@ const Layout = () => {
         }
 
         check_user_auth()
-    }, [])
+    }, [navigate])
 
     return <div className="min-h-[100vh] bg-[rgb(235,235,235)]">
         {loading ? <div className='flex space-x-2 justify-center items-center bg-white h-screen'>

@@ -1,6 +1,5 @@
 import { useEffect, useMemo, useState } from "react"
 import trash from "../../public/trash-icon.svg"
-import { Helmet } from "react-helmet-async"
 
 const Addresses = () => {
     const [addresses, setAddresses] = useState([])
@@ -8,6 +7,7 @@ const Addresses = () => {
     const [error, setError] = useState(false)
     
     useEffect(() => {
+      document.title = "Slash - ჩემი მისამართები"
         const get_addresses = async () => {
             try {
               const request = await fetch(`${process.env.REACT_APP_SERVER_URL}/api/address`, {
@@ -112,9 +112,6 @@ const Addresses = () => {
 
 
     return <>
-      <Helmet>
-        <title>Slash - ჩემი მისამართები</title>
-      </Helmet>
       <div className="sm:flex-[11]">
       <div className="sm:w-[80%] flex sm:items-start gap-10 flex-col m-auto mt-10">
           {render}

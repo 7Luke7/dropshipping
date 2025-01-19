@@ -24,7 +24,7 @@ export const ProductLoading = () => {
         <div className="bg-gray-200 xxs:min-h-[30px] animate-pulse lg:min-h-[73px] w-full rounded"></div>
             <Fragment>
                 {[1,2].map((a,i) => {
-                    <div key={i} className="bg-gray-300 h-[30px] mt-1 rounded w-full animate-pulse"></div>
+                    return <div key={i} className="bg-gray-300 h-[30px] mt-1 rounded w-full animate-pulse"></div>
                 })}
             </Fragment>
             <div className="flex h-full flex-col">
@@ -72,7 +72,6 @@ export const ProductLoading = () => {
             <div className="flex lg:w-1/3 flex-col xl:justify-between h-full w-full gap-5">
                 <div className="border xxs:w-full bg-gray-200 xxs:w-full rounded px-4 xxs:h-[45px] lg:h-[40px]">
                 </div>
-                <div  className="bg-gray-200 xxs:w-full xxs:w-full rounded xxs:h-[45px] lg:h-[40px] px-4"></div>
             </div>
             <div className="xxs:w-full lg:w-5/6 xl:w-2/4 h-full px-3 gap-5 py-2 flex lg:h-[100px] flex-col border justify-between rounded border-gray-100">
                     <div className="w-[200px] bg-gray-200 h-[30px] rounded"></div>

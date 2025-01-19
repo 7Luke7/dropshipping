@@ -72,7 +72,7 @@ export const AdditionalInformation = memo(({id, product}) => {
 
     {reviewsChoosen ? <div className="flex flex-col xxs:mt-10 sm:m-20">
         {reviewData && reviewData.totalRecords !== "0" && <p className="text-md font-bold mb-5">განხილვები: {reviewData.totalRecords}</p>}
-        {!reviewData ? <ReviewLoading></ReviewLoading> : reviewData && reviewData.content.length != 0 ? <Fragment>
+        {!reviewData ? <ReviewLoading></ReviewLoading> : reviewData && reviewData.content.length !== 0 ? <Fragment>
             <ReviewData reviewData={reviewData}></ReviewData>
             <ReviewPagination page={page} setPage={setPage} allPages={allPages}></ReviewPagination> 
         </Fragment>: <p className="text-md p-0 m-0 text-center text-gray-900 font-semibold">განხილვები ცარიელია</p>}

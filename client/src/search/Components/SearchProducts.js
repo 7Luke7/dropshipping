@@ -2,7 +2,6 @@ import { Fragment, useEffect, useMemo, useState } from "react"
 import {SearchProduct} from "./SearchProduct"
 import {Pagination} from "../../Components/Pagination"
 import { translate } from "../../Components/Translate"
-import {Helmet} from "react-helmet-async"
 import categoryNames from "../../Components/searchNav.json"
 
 export const SearchProducts = ({category_id, page, isVideo, isAsc, fieldType, countryCode, keyword, minInput, maxInput}) => {
@@ -128,29 +127,8 @@ export const SearchProducts = ({category_id, page, isVideo, isAsc, fieldType, co
               {productListLength > 0 && <Pagination page={page} total={products.totalPages}></Pagination>}
             </Fragment>
       } else if (productListLength > 0) {
+        document.title = `${keyword ? `${keyword} გასაყიდად` : keywords} - Slash`
         return <Fragment> 
-          <Helmet>
-        <meta
-          name="description"
-          content={keyword ? `ძიება ${keyword} - საუკეთესო ფასებში - Slash.ge` : `${keywords} - საუკეთესო ფასებში - Slash.ge`}
-        />
-        <meta
-          name="keywords"
-          content={keywords}
-        />
-        <link rel="canonical" href={window && window.location.href} />
-
-        <meta property="og:type" content="website" />
-        <meta property="og:title" content={keyword ? `ძიება ${keyword} - Slash.ge` : `${keywords} - Slash.ge`} />
-        <meta
-          property="og:description"
-          content={keyword ? `ძიება ${keyword} - საუკეთესო ფასებში - Slash.ge` : `${keywords} - საუკეთესო ფასებში - Slash.ge`}
-        />
-        <meta property="og:image:width" content="1200" />
-        <meta property="og:image:height" content="900" />
-        <meta property="og:url" content={window && window.location.href} />
-        <title>{keyword ? `${keyword} გასაყიდად` : keywords} - Slash</title>
-    </Helmet>  
           <div className={`flex gap-y-2 gap-x-1 flex-wrap xxs:justify-center lg:justify-between`}> 
            {products.content[0].productList.map((p, i) => {
           return <Fragment key={i}>

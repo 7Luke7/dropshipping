@@ -1,7 +1,6 @@
 import { Fragment, useEffect, useState } from "react"
 import pen from "../public/pen.svg"
 import Plus from "../public/plus-circle.svg"
-import {Helmet} from "react-helmet-async"
 
 const Dashboard = () => {
     const [user, setUser] = useState()
@@ -12,6 +11,7 @@ const Dashboard = () => {
     const [message, setMessage] = useState("")
     
     useEffect(() => {
+      document.title = "Slash - ჩემი ანგარიში"
       const get_addresses = async () => {
         try {
           const request = await fetch(`${process.env.REACT_APP_SERVER_URL}/api/profile`, {
@@ -105,9 +105,6 @@ const Dashboard = () => {
     }
 
     return <Fragment>
-      <Helmet>
-        <title>Slash - ჩემი ანგარიში</title>
-      </Helmet>
       <div className="sm:flex-[11]">
     <div className="sm:w-[80%] flex gap-10 flex-col m-auto mt-10">
         {

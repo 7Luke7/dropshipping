@@ -3,7 +3,6 @@ import { Header } from "../Components/Header"
 import { Footer } from "../Components/Footer"
 import { MoreProducts } from "./Components/MoreProducts"
 import { translate } from "../Components/Translate"
-import { Helmet } from "react-helmet-async"
 import { useParams } from "react-router-dom"
 
 const Page = () => {
@@ -14,6 +13,7 @@ const Page = () => {
     const id = Number(params_id.id)
 
     useEffect(() => {
+      document.title = `მოძებნე ${title} - Slash`
       const get_activities = async () => {
         try {
             const head_url = {url: "", body: null}
@@ -68,32 +68,6 @@ const Page = () => {
     const title = id === 1 ? "ახალი პროდუქცია" : id === 2 ? "ტრენდული პროდუქცია" : "ვიდეო პროდუქცია"
 
     return <Fragment>
-      <Helmet>
-        <meta
-          name="description"
-          content={`გთავაზობთ 50 ${title}ს - Slash.ge`}
-        />
-        <meta
-          name="keywords"
-          content={`Slash, Slash.ge, ${title}, ტიკტოკ პროდუქცია`}
-        />
-        <link rel="canonical" href={window.location.href} />
-        <title>მოძებნე {title} - Slash</title>
-
-        <meta property="og:type" content="website" />
-        <meta property="og:title" content={`მოძებნე - ${title} - Slash.ge`}/>
-        <meta
-          property="og:description"
-          content={`გთავაზობთ 50 ${title}ს - Slash.ge`}
-        />
-        {/*<meta
-          property="og:image"
-          content={}
-  /> უნდა იყოს ლოგო წესით */}
-        <meta property="og:image:width" content="1200" />
-        <meta property="og:image:height" content="900" />
-        <meta property="og:url" content={window.location.href} />
-    </Helmet>
     <div id="closeScroll" className="bg-[rgb(251,77,1)]">
         <Header></Header>
         {

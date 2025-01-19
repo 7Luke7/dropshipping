@@ -16,13 +16,10 @@ import ViewMore from "./view-more/ViewMore"
 import Boards from "./boards/Boards"
 import Search from "./search/Search";
 import Product from "./product/Product";
-import Purchase from "./purchase/Purchase"
 import Category from "./category/Category"
-import { HelmetProvider } from "react-helmet-async";
 
 const App = () => {
-  return  <HelmetProvider>
-    <BrowserRouter>
+  return  <BrowserRouter>
   <Routes>
     <Route path="/" element={<Landing />} />
     <Route path="cart" element={<Cart />} />
@@ -39,10 +36,8 @@ const App = () => {
     <Route path="*" element={<NotFound />} />
     <Route path="product/:id" element={<Product />} />
     <Route path="category" element={<Category />} />
-    <Route path="purchase" element={<Purchase />} />
   </Routes>
 </BrowserRouter>
-  </HelmetProvider>
 }
 
 export default App;

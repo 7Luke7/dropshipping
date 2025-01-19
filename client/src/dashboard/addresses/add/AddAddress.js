@@ -1,7 +1,6 @@
-import { Fragment, useState } from "react"
+import { Fragment, useEffect, useState } from "react"
 import cities from "../../cities.json"
 import { useNavigate } from "react-router-dom"
-import { Helmet } from "react-helmet-async"
 
 const AddAddress = () => {
     const [state, setState] = useState("")
@@ -10,6 +9,9 @@ const AddAddress = () => {
     const [message, setMessage] = useState("")
 
     const navigate = useNavigate()
+    useEffect(() => {
+      document.title = 'Slash - მისამათის დამატება'
+    }, [])
 
     const SubmitAddress = async (e) => {
         e.preventDefault()
@@ -42,9 +44,6 @@ const AddAddress = () => {
 
 
     return <>
-    <Helmet>
-      <title>Slash - მისამათის დამატება</title>
-    </Helmet>
      <div style={{flex: "11"}}>
     <div className="flex min-h-[80vh] items-center justify-center">
     <div className="flex h-full flex-[6] flex-col justify-center px-6 py-12 lg:px-8">

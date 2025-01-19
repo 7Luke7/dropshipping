@@ -5,7 +5,6 @@ import arrowRight from "../public/arrow-right.svg"
 import { useParams } from "react-router-dom"
 import {BoardProducts} from "./Components/BoardProducts"
 import { translate } from "../Components/Translate"
-import {Helmet} from "react-helmet-async"
 
 const Page = () => {
     const [board, setBoard] = useState({})
@@ -16,6 +15,7 @@ const Page = () => {
     const params = useParams()
 
     useEffect(() => {
+        document.title = `${board.title} - Slash`
         const get_board = async () => {
             try {
                 const request = await fetch("https://www.cjdropshipping.com/cj/activity/getActivityByIdV2", {
@@ -58,7 +58,7 @@ const Page = () => {
         }
 
         get_board()
-    }, [])
+    }, [params.id])
 
     const get_activities_by_id = async ({id, index}) => {
         setIsLoading(true)
@@ -123,28 +123,6 @@ const Page = () => {
         <Header></Header>
         </div>
         {Object.keys(board).length > 0 && <Fragment>
-            <Helmet>
-        <meta
-          name="description"
-          content="უფასო მიწოდება უამრავ ნივთზე. მიიღეთ საუკეთესო შოპინგის გამოცდილება. ისარგებლეთ დაბალი ფასებით და დიდი შეთავაზებებით ყოველდღიური საჭირო ნივთების და სხვა პროდუქტების უდიდეს არჩევანზე, მათ შორის მოდაზე, სახლზე, სილამაზეზე, ელექტრონიკაზე, სპორტული, სათამაშოები, შინაური ცხოველები, ბავშვები, წიგნები, ვიდეო თამაშები, საოფისე მასალები და მეტი. - Slash.ge"
-        />
-        <meta
-          name="keywords"
-          content="Slash, Slash.ge, ჩინეთიდან, ამერიკიდან, გერმანიიდან, ინგლისიდან, ონლაინ შოპინგი, ონლაინ მაღაზია, დაბალი ფასი, წიგნები, წიგნის მაღაზია, ჟურნალი, გამოწერა, მუსიკა, CD, DVD, ვიდეო, ელექტრონიკა, ვიდეო თამაშები, კომპიუტერები, მობილური ტელეფონები, სათამაშოები, თამაშები, ტანსაცმელი, აქსესუარები, ფეხსაცმელი, სამკაულები, საათები, საოფისე პროდუქტები, სპორტი და ღია ცის ქვეშ, სპორტული საქონელი, ბავშვის პროდუქტები, ჯანმრთელობა, პირადი მოვლა, სილამაზე, სახლი, ბაღი, საწოლი და აბაზანა, ავეჯი, ხელსაწყოები, აპარატურა, მტვერსასრუტები, გარე საცხოვრებელი, ავტომობილების ნაწილები, შინაური ცხოველების მარაგი"
-        />
-        <link rel="canonical" href={window.location.href} />
-
-        <meta property="og:type" content="website" />
-        <meta property="og:title" content="პროდუქცია უცხოეთიდან - Slash.ge" />
-        <meta
-          property="og:description"
-          content="ჩვენ გთავაზობთ შეიძინოთ უცხოეთში დამზადებული ნივთები დაბალ ფასად - Slash.ge"
-        />
-        <meta property="og:image:width" content="1200" />
-        <meta property="og:image:height" content="900" />
-        <meta property="og:url" content={window.location.href} />
-        <title>{board.title} - Slash</title>
-    </Helmet>
     <div id="closeScroll" style={{ backgroundColor: board.backColor }} className="h-full min-h-screen w-full">
             <img src={board.activityImgUrl} loading="lazy" className="w-full xxs:h-[80px] xs:h-[120px] md:h-[260px] md:object-contain sm:h-[180px] mobl:h-[140px] object-cover object-top lg:h-[200px] xl:h-[450px]" alt="ბანერი"></img>
             <div className="lg:w-[80%] xxs:w-full m-auto" id="start">

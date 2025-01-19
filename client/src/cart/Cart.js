@@ -2,7 +2,6 @@ import { Fragment, useEffect, useState } from "react"
 import { Header } from "../Components/Header"
 import { Footer } from "../Components/Footer"
 import sadIcon from "../public/sad-icon.svg"
-import {Helmet} from "react-helmet-async"
 import { InternalError } from "../Components/InternalError"
 import { CartItem } from "./CartItem"
 
@@ -12,6 +11,7 @@ const Cart = () => {
     const [isError, setIsError] = useState(false)
 
     useEffect(() => {
+        document.title = "Slash - კალათა"
         const cartArrayRequest = async () => {
             document.getElementById("notification").style.display = "none"
             try {
@@ -99,9 +99,6 @@ const Cart = () => {
     }
 
         return <>
-            <Helmet>
-                <title>Slash - კალათა</title>
-            </Helmet>
             <div className="relative">
         <Header></Header>
         <div id="closeScroll" className="min-h-[90vh]">

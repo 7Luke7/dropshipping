@@ -1,7 +1,7 @@
 import Slider from "react-slick";
 import LeftArrow from "../../public/arrow-left.svg" 
 import RightArrow from "../../public/arrow-right.svg" 
-import { Fragment, memo, useEffect, useMemo, useRef, useState } from "react";
+import { Fragment, memo, useEffect, useRef, useState } from "react";
 import {SingleCarouselItem} from "./SingleCarouselItem"
 
 export const MediaCarousel = memo(({product, curr, setCurr, id}) => {
@@ -53,43 +53,40 @@ export const MediaCarousel = memo(({product, curr, setCurr, id}) => {
             }
         }
         fetch_media()
-    }, [product.isHaveVideo])
+    }, [product.isHaveVideo, id, product.newImgList, setCurr])
 
     useEffect(() => {
         slider.current && slider.current.slickGoTo(curr.index)
     }, [curr])
 
-    const settings = useMemo(() => {
-        return {
-            speed: 200,
-            infinite: productImage.length >= 7 ? true : false,
-            slidesToShow: productImage.length >= 7 ? 7 : productImage.length,   
-            swipe: true,
-            adaptiveHeight: true,
-            slidesToScroll: 1,
-            arrows: false,  
-            lazyLoad: true,
-            swipeToSlide: 3,
-            responsive: [
-                {
-                  breakpoint: 768,
-                  settings: {
-                    speed: 200,
-                    swipe: true,
-                    infinite: productImage.length >= 3 ? true : false,
-                    slidesToShow: productImage.length >= 3 ? 3 : productImage.length,   
-                    adaptiveHeight: true,
-                    slidesToScroll: 1,
-                    swipeToSlide: 2,
-                    arrows: false,
-                    lazyLoad: true,
-                  }
-                },
-            ]
-          
-        }
-    })
-
+    const settings = {
+        speed: 200,
+        infinite: productImage.length >= 7 ? true : false,
+        slidesToShow: productImage.length >= 7 ? 7 : productImage.length,   
+        swipe: true,
+        adaptiveHeight: true,
+        slidesToScroll: 1,
+        arrows: false,  
+        lazyLoad: true,
+        swipeToSlide: 3,
+        responsive: [
+            {
+                breakpoint: 768,
+                settings: {
+                speed: 200,
+                swipe: true,
+                infinite: productImage.length >= 3 ? true : false,
+                slidesToShow: productImage.length >= 3 ? 3 : productImage.length,   
+                adaptiveHeight: true,
+                slidesToScroll: 1,
+                swipeToSlide: 2,
+                arrows: false,
+                lazyLoad: true,
+                }
+            },
+        ]
+        
+    }
     return <Fragment>
         <div className="w-full xl:w-[450px] h-full">
         {curr && curr.imageURL && curr.imageURL.includes(".mp4") ? <div className="relative outline-none w-full h-full">

@@ -1,6 +1,5 @@
-import { Fragment, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import Search from "../public/search.svg"
-import List from "../public/list.svg"
 import { useNavigate } from "react-router-dom";
 
 export const MobileSearch = () => {
@@ -53,15 +52,6 @@ export const MobileSearch = () => {
         setSuggestion([])
         navigate(`/search?page=1&keyword=${searchValue}`)
         setSearchValue("")
-    }
-
-    const displayBar = () => {
-        const closeScroll = document.getElementById("closeScroll")
-        const catBar = document.getElementById("catBar")
-
-        catBar.style.display = "block"        
-        closeScroll.style.overflow = "hidden"
-        closeScroll.style.position = "fixed"
     }
 
     return <form onSubmit={search} className="sm:hidden w-full m-auto items-center xxs:flex relative justify-between items-center bg-slate-50">
