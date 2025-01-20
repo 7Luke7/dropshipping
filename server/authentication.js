@@ -41,8 +41,6 @@ const register_user = async (req, res, next) => {
             await user.save();
 
             req.session.user = user._id
-            const weekinms = 7 * 24 * 60 * 60 * 1000;
-            req.session.cookie.maxAge = weekinms;
             res.status(200).json({success: "რეგისტრაცია წარმატებით დასრულდა"})
 
           })
