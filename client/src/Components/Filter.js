@@ -1,5 +1,6 @@
 import { useSearchParams } from "react-router-dom"
 import { memo, useEffect, useState  } from "react"
+import Close from "../public/x-lg.svg"
 
 export const Filter = memo(({isVideo, countryCode}) => {
     const [minPrice, setMinPrice] = useState("");
