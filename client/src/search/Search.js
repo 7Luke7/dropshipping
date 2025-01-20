@@ -4,7 +4,6 @@ import { Header } from "../Components/Header"
 import Close from "../public/x-lg.svg"
 import {SearchProducts} from "./Components/SearchProducts"
 import { useSearchParams } from "react-router-dom"
-import Close from "../public/x-lg.svg"
 
 const Search = () => {
     const [searchParams, setSearchParams] = useSearchParams()
