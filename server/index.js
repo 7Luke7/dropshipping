@@ -14,8 +14,11 @@ const {
 const compression = require("compression")
 
 app.use(compression({
-    level: 9
+    level: 1
 }))
+
+app.set('trust proxy', 1)
+
 const sess = session({
     secret: process.env.SESSION_SECRET,  
     resave: false,
