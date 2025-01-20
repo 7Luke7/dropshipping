@@ -95,6 +95,7 @@ const login_user = async (req, res, next) => {
 
 const isAuthenticated = (req, res, next) => {
     try {
+            console.log('Session user:', req.session.user); // Debugging session access
         if(req.session.user) {
             next()
         } else {
