@@ -36,14 +36,8 @@ const Register = () => {
               throw new Error(message.message)
           }
           
-          const purchases = sessionStorage.getItem("purchases")
-          if (purchases) {
-            setMessage(message.message)
-            navigate("/purchase")
-          } else {
-            setMessage(message.message)               
+                      
             navigate("/")
-          }
       } catch (error) {
           setMessage(error.message)
       }
