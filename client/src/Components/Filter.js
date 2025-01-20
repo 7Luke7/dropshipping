@@ -68,11 +68,23 @@ export const Filter = memo(({isVideo, countryCode}) => {
         setSearchParams(searchParams);
       }
 
+    const closeBar = () => {
+        const closeScroll = document.getElementById("closeScroll")
+        document.getElementById("mobile_filter_component").style.display = "none"
+        closeScroll.style.overflow = "visible"
+        closeScroll.style.position = "static"
+      }
+
     return <section className="border-t sticky top-[10%] xxs:w-full lg:w-[200px] border-gray-200">
     <div className="border-t border-gray-200 w-full px-2 py-6">
-    <h3 className="font-medium -my-3 text-gray-900">
+    <div className="flex items-center justify-between">
+      <h3 className="font-medium -my-3 text-gray-900">
         ფასი
     </h3>
+        <button className='w-[24px] xxs:block lg:hidden h-[24px]' onClick={closeBar}>
+          <img src={Close} width={24} height={24} alt="დახურვა" decoding='lazy'></img>
+        </button>
+      </div>
       <form className="pt-6 xxs:flex lg:block" onSubmit={filterByPrice}>
           <input type="text" value={minPrice} onChange={(e) => setMinPrice(e.target.value)} className="p-2 lg:w-20 xxs:w-16 border outline-none" id="min" placeholder="მინ." ></input>
           <input type="text" value={maxPrice} onChange={(e) => setMaxPrice(e.target.value)} placeholder="მაქს." id="max" className="p-2 xxs:w-16 lg:w-20 border outline-none" ></input>
