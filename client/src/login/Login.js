@@ -39,10 +39,10 @@ const Login = () => {
       const purchases = sessionStorage.getItem("purchases")
       if (purchases) {
         setMessage(message.message)
-        navigate("/purchase")
+        // navigate("/purchase")
       } else {
         setMessage(message.message)
-        navigate("/")
+        // navigate("/")
       }
     } catch (error) {
         setMessage(error.message)
