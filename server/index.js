@@ -27,7 +27,7 @@ const sess = session({
         secure: true,
         httpOnly: true,
         maxAge: 7 * 24 * 60 * 60 * 1000,
-        sameSite: 'None',
+        sameSite: 'none',
     }
 })
 const origin = process.env.URL
