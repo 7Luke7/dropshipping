@@ -33,7 +33,7 @@ const sess = session({
 const origin = process.env.URL
 
 app.use(cors({
-    origin: origin,
+    origin: "https://dropshipping-vwjw.vercel.app",
     credentials: true,
 }))
 
